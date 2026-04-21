@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/home', function() {
     return view('peminjam.dashboard');
 });
+
+Route::get('/peminjaman', function() {
+    return view('peminjam.peminjaman');
+});

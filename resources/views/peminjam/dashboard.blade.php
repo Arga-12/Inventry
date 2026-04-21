@@ -4,11 +4,11 @@
 <div class="mx-auto">
 	<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-		{{-- kolom1 --}}
+		{{-- baris1 kolom1 --}}
 		<div class="flex flex-col gap-8">
 			<div>
 				<h1 class="text-4xl font-bold text-gray-900">Dashboard</h1>
-				<p class="text-gray-500 mt-2">Selamat datang di Inventry, tempat kamu meminjam barang</p>
+				<p class="text-gray-500 mt-2">Selamat datang di Inventry, tempat Anda meminjam barang</p>
 			</div>
 
 			<div class="flex items-center justify-between gap-8">
@@ -19,10 +19,13 @@
 							<span class="text-5xl font-bold text-[#363062]">67</span>
 							<div class="flex items-center">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-full text-[#363062]/50 rotate-180" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20V4m0 0l6 6m-6-6l-6 6"/></svg>
-									<span class="text-5xl font-normal text-[#363062]/50">23</span>
+								<span class="text-5xl font-normal text-[#363062]/50">23</span>
 							</div>
 						</div>
-						<span class="text-xs font-medium text-[#363062]">3 Lebih banyak daripada bulan lalu</span> 
+						<div class="flex items-center gap-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></svg>
+							<span class="text-xs font-medium text-[#363062]">Lebih banyak daripada bulan lalu</span> 
+						</div>
 					</div>
 				</div>
 				
@@ -33,16 +36,19 @@
 							<span class="text-5xl font-bold text-[#363062]">23</span>
 							<div class="flex items-center">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-full text-[#363062]/50" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20V4m0 0l6 6m-6-6l-6 6"/></svg>
-									<span class="text-5xl font-normal text-[#363062]/50">23</span>
+								<span class="text-5xl font-normal text-[#363062]/50">23</span>
 							</div>
 						</div>
-						<span class="text-xs font-medium text-[#363062]">3 Lebih banyak daripada bulan lalu</span> 
+						<div class="flex items-center gap-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></svg>
+							<span class="text-xs font-medium text-[#363062]">Lebih banyak daripada bulan lalu</span> 
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		{{-- kolom2 --}}
+		{{-- baris1 kolom2 --}}
 		<div class="h-full">
 			<div class="h-full bg-gradient-to-r from-[#363062] to-[#4D4C7D] rounded-[20px] p-8 shadow-lg">
 				<div class="flex justify-between">
@@ -64,6 +70,209 @@
 				</div>
 			</div>
 		</div>
+
+		{{-- baris2 kolom1 --}}
+		
+		<div class="relative flex flex-col h-96">
+
+			{{-- title --}}
+			<div class="mb-4">
+				<h2 class="text-3xl font-bold">Peminajam Anda saat ini</h2>
+				<p class="text-sm font-light text-gray-500">
+					Daftar peminjaman yang sedang berlangsung
+				</p>
+			</div>
+
+			<div class="flex-1 overflow-y-auto pl-6 flex flex-col gap-4 no-scrollbar">
+				{{-- card list antrian --}}
+				<div class="relative w-full h-20 flex-shrink-0 bg-white rounded-[20px] flex items-center px-10 shadow-md">
+
+					<div class="absolute -left-4 w-14 h-16 bg-gray-200 rounded-[15px] shadow-md overflow-hidden">
+						<img src={{ asset("images/id1.jpg") }} class="object-cover w-full h-full">
+					</div>
+
+					<div class="ml-4 flex flex-col">
+						<p class="font-medium text-[#363062]">#INVT-2604-023</p>
+						<p class="flex font-light text-sm text-[#4D4C7D]">RTX 3050, Mouse Micro, Remote AC</p>
+					</div>
+
+					<div class="ml-auto flex items-center gap-3 mr-[-40x]">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+
+						<div class="flex items-center gap-2">
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 08:00
+							</span>
+							<span class="text-gray-300">—</span>
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 15:00
+							</span>
+						</div>
+
+						<button class="h-8 w-28 p-2 rounded-full bg-[#4D4C7D] flex items-center justify-center text-white text-sm font-semibold">
+							Detail Struk
+						</button>
+					</div>
+				</div>
+
+				<div class="relative w-full h-20 flex-shrink-0 bg-white rounded-[20px] flex items-center px-10 shadow-md">
+
+					<div class="absolute -left-4 w-14 h-16 bg-gray-200 rounded-[15px] shadow-md overflow-hidden">
+						<img src={{ asset("images/id1.jpg") }} class="object-cover w-full h-full">
+					</div>
+
+					<div class="ml-4 flex flex-col">
+						<p class="font-medium text-[#363062]">#INVT-2604-023</p>
+						<p class="flex font-light text-sm text-[#4D4C7D]">RTX 3050, Mouse Micro, Remote AC</p>
+					</div>
+
+					<div class="ml-auto flex items-center gap-3 mr-[-40x]">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+
+						<div class="flex items-center gap-2">
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 08:00
+							</span>
+							<span class="text-gray-300">—</span>
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 15:00
+							</span>
+						</div>
+
+						<button class="h-8 w-28 p-2 rounded-full bg-[#4D4C7D] flex items-center justify-center text-white text-sm font-semibold">
+							Detail Struk
+						</button>
+					</div>
+				</div>
+
+				<div class="relative w-full h-20 flex-shrink-0 bg-white rounded-[20px] flex items-center px-10 shadow-md">
+
+					<div class="absolute -left-4 w-14 h-16 bg-gray-200 rounded-[15px] shadow-md overflow-hidden">
+						<img src={{ asset("images/id1.jpg") }} class="object-cover w-full h-full">
+					</div>
+
+					<div class="ml-4 flex flex-col">
+						<p class="font-medium text-[#363062]">#INVT-2604-023</p>
+						<p class="flex font-light text-sm text-[#4D4C7D]">RTX 3050, Mouse Micro, Remote AC</p>
+					</div>
+
+					<div class="ml-auto flex items-center gap-3 mr-[-40x]">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+
+						<div class="flex items-center gap-2">
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 08:00
+							</span>
+							<span class="text-gray-300">—</span>
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 15:00
+							</span>
+						</div>
+
+						<button class="h-8 w-28 p-2 rounded-full bg-[#4D4C7D] flex items-center justify-center text-white text-sm font-semibold">
+							Detail Struk
+						</button>
+					</div>
+				</div>
+
+				<div class="relative w-full h-20 flex-shrink-0 bg-white rounded-[20px] flex items-center px-10 shadow-md">
+
+					<div class="absolute -left-4 w-14 h-16 bg-gray-200 rounded-[15px] shadow-md overflow-hidden">
+						<img src={{ asset("images/id1.jpg") }} class="object-cover w-full h-full">
+					</div>
+
+					<div class="ml-4 flex flex-col">
+						<p class="font-medium text-[#363062]">#INVT-2604-023</p>
+						<p class="flex font-light text-sm text-[#4D4C7D]">RTX 3050, Mouse Micro, Remote AC</p>
+					</div>
+
+					<div class="ml-auto flex items-center gap-3 mr-[-40x]">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+
+						<div class="flex items-center gap-2">
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 08:00
+							</span>
+							<span class="text-gray-300">—</span>
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 15:00
+							</span>
+						</div>
+
+						<button class="h-8 w-28 p-2 rounded-full bg-[#4D4C7D] flex items-center justify-center text-white text-sm font-semibold">
+							Detail Struk
+						</button>
+					</div>
+				</div>
+
+				<div class="relative w-full h-20 flex-shrink-0 bg-white rounded-[20px] flex items-center px-10 shadow-md">
+
+					<div class="absolute -left-4 w-14 h-16 bg-gray-200 rounded-[15px] shadow-md overflow-hidden">
+						<img src={{ asset("images/id1.jpg") }} class="object-cover w-full h-full">
+					</div>
+
+					<div class="ml-4 flex flex-col">
+						<p class="font-medium text-[#363062]">#INVT-2604-023</p>
+						<p class="flex font-light text-sm text-[#4D4C7D]">RTX 3050, Mouse Micro, Remote AC</p>
+					</div>
+
+					<div class="ml-auto flex items-center gap-3 mr-[-40x]">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+
+						<div class="flex items-center gap-2">
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 08:00
+							</span>
+							<span class="text-gray-300">—</span>
+							<span class="px-2 py-1 bg-[#363062]/5 rounded-md text-xs font-medium text-[#363062] tracking-wider">
+								20/04 15:00
+							</span>
+						</div>
+
+						<button class="h-8 w-28 p-2 rounded-full bg-[#4D4C7D] flex items-center justify-center text-white text-sm font-semibold">
+							Detail Struk
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="pointer-events-none absolute bottom-0 left-0 w-full h-3 bg-gradient-to-t from-white to-transparent">
+			</div>
+		</div>
+
+		{{-- baris2 kolom2 --}}
+		<div class="relative w-full h-96 bg-white rounded-[20px] p-10 overflow-hidden shadow-md">
+
+			<div class="absolute inset-0 bg-[url('https://images.pexels.com/photos/18338417/pexels-photo-18338417.jpeg')] bg-cover bg-center">
+				<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/30"></div>
+			</div>
+
+			<div class="relative z-10 flex flex-col h-full text-white">
+				<div class="space-y-1">
+					<h1 class="text-4xl font-bold">Untuk Anda!</h1>
+					<p class="text-lg font-light text-gray-200">Optimalkan alur kerja Anda dengan rekomendasi inventaris yang relevan. Perangkat di bawah ini dipilih secara otomatis untuk mendukung kebutuhan teknis Anda saat ini.</p>
+				</div>
+
+				<div class="mt-auto flex justify-between items-end gap-10">
+
+				    <!-- kiri -->
+				    <div class="flex flex-col gap-1">
+				        <p class="font-semibold text-white">RTX 2080 4GB</p>
+
+				        <div class="flex items-center gap-2">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
+							<p class="font-medium">1 Jam 30 Menit</p>
+				        </div>
+				    </div>
+
+				    <!-- kanan -->
+				    <button class="h-8 w-48 p-2 rounded-full border border-white flex items-center justify-center text-white text-sm font-semibold">
+				        Pinjam Sekarang
+				    </button>
+				</div>
+			</div>
+		</div>
+
+		{{-- baris3 kolom1--}}
 	</div>
 </div>
 @endsection
