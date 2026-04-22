@@ -14,11 +14,15 @@
 		<div class="flex-1 flex flex-col">
 			<x-header />
 
-			<main class="flex-1 flex justify-center p-6">
+			<main class="flex-1 flex justify-center p-6 overflow-y-auto">
 	            <div class="w-full">
 	                @yield('content')
 	            </div>
         	</main>
+
+			@if (request()->routeIs('peminjam-alat'))
+				<x-card-peminjaman />
+			@endif
 		</div>
 	</div>
 	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

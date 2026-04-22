@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mx-auto">
-	<div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
+	<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch">
 
 		<div class="flex flex-col">
 			<h1 class="text-4xl font-bold text-gray-900">Peminjaman Alat & Barang</h1>
@@ -40,6 +40,13 @@
 				</div>
 			</div>
 		</div>
+
+		<x-card-alat />
+		<x-card-alat />
+		<x-card-alat />
+		<x-card-alat />
+		<x-card-alat />
+		<x-card-alat />
 	</div>
 </div>
 @endsection

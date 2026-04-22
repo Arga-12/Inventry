@@ -39,7 +39,7 @@
         <div class="mt-auto p-3 border-t border-white">
             
         </div> --}}
-        <nav class="flex-1 px-4 mt-4">
+        <nav class="flex-1 px-4 mt-4 overflow-y-auto scrollbar-hide">
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('peminjam-home') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('peminjam-home') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062]' }}">
