@@ -2,47 +2,49 @@
 
 @section('content')
 <div class="mx-auto">
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
 
 		{{-- baris1 kolom1 --}}
-		<div class="flex flex-col gap-8">
-			<div>
+		<div class="flex flex-col gap-8 h-full">
+			<div class="flex-1 flex flex-col">
 				<h1 class="text-4xl font-bold text-gray-900">Dashboard</h1>
-				<p class="text-gray-500 mt-2">Selamat datang di Inventry, tempat Anda meminjam barang</p>
+				<p class="text-gray-500">Selamat datang di Inventry, tempat Anda meminjam barang</p>
 			</div>
 
 			<div class="flex items-center justify-between gap-8">
-				<div class="flex gap-6 items-center w-full">
-					<div class="flex flex-col gap-2 w-full h-full p-4 bg-white shadow-lg rounded-[20px] border-b-2 border-[#363062]">
-						<span class="text-gray-500 text-sm font-medium">Peminjaman dilakukan</span>
-						<div class="flex justify-between">
-							<span class="text-5xl font-bold text-[#363062]">67</span>
-							<div class="flex items-center">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-full text-[#363062]/50 rotate-180" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20V4m0 0l6 6m-6-6l-6 6"/></svg>
-								<span class="text-5xl font-normal text-[#363062]/50">23</span>
-							</div>
+				<div class="h-max w-full bg-white shadow-lg rounded-[20px] flex flex-col items-start p-6 gap-2">
+					
+					<div class="flex justify-between items-center w-full">
+						<div class="flex flex-col items-start">
+							<h2 class="font-bold text-3xl">Total Peminjaman</h2>
+							<p class="text-sm font-light text-gray-500">Total peminjaman anda berdasarkan tiap kategori</p>
 						</div>
-						<div class="flex items-center gap-1">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></svg>
-							<span class="text-xs font-medium text-[#363062]">Lebih banyak daripada bulan lalu</span> 
-						</div>
+
+						<h2 class="font-bold text-5xl">167</h2>
 					</div>
-				</div>
-				
-				<div class="flex gap-6 items-center w-full">
-					<div class="flex flex-col gap-2 w-full h-full p-4 bg-white shadow-lg rounded-[20px] border-b-2 border-[#363062]">
-						<span class="text-gray-500 text-sm font-medium">Alat dikembalikan</span>
-						<div class="flex justify-between">
-							<span class="text-5xl font-bold text-[#363062]">23</span>
-							<div class="flex items-center">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-full text-[#363062]/50" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20V4m0 0l6 6m-6-6l-6 6"/></svg>
-								<span class="text-5xl font-normal text-[#363062]/50">23</span>
-							</div>
-						</div>
-						<div class="flex items-center gap-1">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#363062]" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></svg>
-							<span class="text-xs font-medium text-[#363062]">Lebih banyak daripada bulan lalu</span> 
-						</div>
+
+					<div class="w-full h-2 rounded-full overflow-hidden flex mt-3">
+					    <div class="h-full bg-[#363062]" style="width: 45%"></div>
+					    <div class="h-full bg-[#4D4C7D]" style="width: 25%"></div>
+					    <div class="h-full bg-[#F99417]" style="width: 30%"></div>
+					</div>
+
+					<div class="flex items-center gap-4 mt-3 text-sm">
+					    <div class="flex items-center gap-2">
+					        <span class="w-2 h-2 rounded-full bg-[#363062]"></span>
+					        <span>Kategori1</span>
+					    </div>
+
+					    <div class="flex items-center gap-2">
+					        <span class="w-2 h-2 rounded-full bg-[#4D4C7D]"></span>
+					        <span>Kategori2</span>
+					    </div>
+
+					    <div class="flex items-center gap-2">
+					        <span class="w-2 h-2 rounded-full bg-[#F99417]"></span>
+					        <span>Kategori3</span>
+					    </div>
+
 					</div>
 				</div>
 			</div>
@@ -50,11 +52,11 @@
 
 		{{-- baris1 kolom2 --}}
 		<div class="h-full">
-			<div class="h-full bg-gradient-to-r from-[#363062] to-[#4D4C7D] rounded-[20px] p-8 shadow-lg">
+			<div class="h-full bg-gradient-to-r from-[#363062] to-[#4D4C7D] rounded-[20px] p-6 shadow-lg flex flex-col justify-between">
 				<div class="flex justify-between">
 					<div class="flex flex-col">
 						<h2 class="text-3xl font-bold text-white">Ingin Meminjam Alat?</h2>
-						<p class="text-gray-200 mt-2 text-sm">Quick search pada kolom dibawah</p>
+						<p class="text-gray-200 text-sm">Quick search pada kolom dibawah</p>
 					</div>
 
 					<div class="bg-gradient-to-l from-[#FFFFFF] to-[#F5F5F5] shadow-md h-12 w-12 p-auto rounded-[15px] flex items-center justify-center">
@@ -62,7 +64,7 @@
 					</div>
 				</div>	
 
-				<div class="mt-14 flex gap-3">
+				<div class="flex gap-3">
 					<input type="text" placeholder="Cari alat..." class="flex-1 rounded-full px-4 py-3">
 					<button class="border-2 border-white px-6 py-3 rounded-full text-white font-bold hover:bg-white hover:border-transparent hover:text-[#F99417] transition-colors">
 						Cari
@@ -240,7 +242,7 @@
 		</div>
 
 		{{-- baris2 kolom2 --}}
-		<div class="relative w-full h-96 bg-white rounded-[20px] p-10 overflow-hidden shadow-md">
+		<div class="relative w-full h-96 bg-white rounded-[20px] p-10 overflow-hidden shadow-lg">
 
 			<div class="absolute inset-0 bg-[url('https://images.pexels.com/photos/18338417/pexels-photo-18338417.jpeg')] bg-cover bg-center">
 				<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/30"></div>
