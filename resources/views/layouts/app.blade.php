@@ -9,21 +9,29 @@
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
 
-	<div class="flex h-screen">
-	<x-navbar />
-		<div class="flex-1 flex flex-col">
-			<x-header />
+	<div class="flex h-screen overflow-x-hidden">
+	    <x-navbar />
 
-			<main class="flex-1 flex justify-center p-6 overflow-y-auto">
-	            <div class="w-full">
+	    {{-- WRAPPER UTAMA --}}
+	    <div class="flex flex-1">
+
+	        {{-- KONTEN KIRI (HEADER + MAIN) --}}
+	        <div class="flex flex-col flex-1 min-w-0">
+	            <x-header />
+
+	            <main class="flex-1 p-6 overflow-y-auto">
 	                @yield('content')
-	            </div>
-        	</main>
+	            </main>
+	        </div>
 
-			@if (request()->routeIs('peminjam-alat'))
-				<x-card-peminjaman />
-			@endif
-		</div>
+	        {{-- SIDEBAR KANAN --}}
+	        @if (request()->routeIs('peminjam-alat'))
+	            <aside class="w-80 shrink-0 border-l bg-white">
+	                <x-card-peminjaman />
+	            </aside>
+	        @endif
+
+	    </div>
 	</div>
 	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>

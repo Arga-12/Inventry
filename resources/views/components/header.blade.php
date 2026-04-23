@@ -1,5 +1,5 @@
 <header class="sticky top-0 left-0 w-full h-20 bg-gradient-to-b from-black/20 to-transparent flex items-center p-4 justify-end z-10">
-    <div class="h-16 w-52 bg-[#F5F5F5] p-2 rounded-full flex items-center justify-between gap-2">
+    <div class="h-16 w-52 bg-[#F5F5F5] p-2 rounded-full flex items-center justify-between gap-2 shadow-lg">
 
         {{-- foto profil --}}
         <div class="flex items-center gap-2">
