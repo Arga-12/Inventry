@@ -1,5 +1,5 @@
-<header class="sticky top-0 left-0 w-full h-20 bg-gradient-to-b from-black/20 to-transparent flex items-center p-4 justify-end z-10">
-    <div class="h-16 w-52 bg-[#F5F5F5] p-2 rounded-full flex items-center justify-between gap-2 shadow-lg">
+<header class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-black/10 to-transparent flex items-start pt-4 pr-4 justify-end z-50 pointer-events-none">
+    <div class="pointer-events-auto h-16 w-52 bg-[#F5F5F5] p-2 rounded-full flex items-center justify-between gap-2 shadow-lg">
 
         {{-- foto profil --}}
         <div class="flex items-center gap-2">
@@ -20,18 +20,18 @@
         <div x-data="{ open: false }" class="relative inline-block text-left mr-2">  
             <button @click="open = !open" @click.away="open = false" class="flex items-center focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" 
-                    class="h-5 w-5 text-[#363062] transition-transform duration-200 rotate-180" 
-                    :class="open ? 'rotate-0' : 'rotate-180'" 
-                    viewBox="0 0 1024 1024">
-                    <path fill="currentColor" d="M488.8 344.3L149 701a32 32 0 0 0 0 44.2l.4.3a29.4 29.4 0 0 0 42.7 0l320-335.8l319.8 335.8a29.4 29.4 0 0 0 42.7 0l.4-.3a32 32 0 0 0 0-44.2L535.2 344.3a32 32 0 0 0-46.4 0"/>
-                </svg>
-            </button>
+                class="h-5 w-5 text-[#363062] transition-transform duration-200 rotate-180" 
+                :class="open ? 'rotate-0' : 'rotate-180'" 
+                viewBox="0 0 1024 1024">
+                <path fill="currentColor" d="M488.8 344.3L149 701a32 32 0 0 0 0 44.2l.4.3a29.4 29.4 0 0 0 42.7 0l320-335.8l319.8 335.8a29.4 29.4 0 0 0 42.7 0l.4-.3a32 32 0 0 0 0-44.2L535.2 344.3a32 32 0 0 0-46.4 0"/>
+            </svg>
+        </button>
 
-            <div x-show="open" class="absolute right-0 mt-6 w-48 rounded-xl bg-white border border-gray-200 shadow-lg py-1">
-                <a href="#" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
-                <div class="border-t border-gray-100 my-1"></div>
-                <a href="#" class="block px-4 py-2 text-xs font-bold text-red-500 hover:bg-red-50">Keluar</a>
-            </div>
+        <div x-show="open" class="absolute right-0 mt-6 w-48 rounded-xl bg-white border border-gray-200 shadow-lg py-1">
+            <a href="#" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
+            <div class="border-t border-gray-100 my-1"></div>
+            <a href="#" class="block px-4 py-2 text-xs font-bold text-red-500 hover:bg-red-50">Keluar</a>
         </div>
     </div>
+</div>
 </header>

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto">
-    
-    <div class="flex flex-col gap-1 mb-8">
+<div class="mx-auto py-12">
+
+    <div class="flex flex-col mb-8">
         <h1 class="text-4xl font-bold text-gray-900">Manajemen Peminjaman</h1>
         <p class="text-gray-500">Lihat detail mengenai peminjaman dan lakukan <span class="font-bold">Pengembalian</span> disini</p>
     </div>
@@ -20,10 +20,10 @@
         </button>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 h-[600px]">
-        
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 h-[650px]">
+
         <div class="flex flex-col gap-6 h-full overflow-y-auto pr-4 pb-4 ">
-            
+
             <div class="flex-shrink-0">
                 <x-card-pengembalian />
             </div>
@@ -37,7 +37,139 @@
 
         </div>
 
-        <div class="w-full h-full bg-[#FAFAFA] rounded-[20px] border-2 border-gray-300 flex flex-col items-center justify-center p-4 text-center">
+        <div class="w-full h-full bg-[#FAFAFA] rounded-[20px] border-2 border-gray-300 flex flex-col p-6 overflow-hidden">
+            
+            <div class="flex-shrink-0">
+                <p class="text-sm font-medium text-gray-500 mb-1">Detail Struk</p>
+
+                <div class="flex justify-between items-start">
+                    <h2 class="text-3xl font-bold text-[#363062]">#INVT-2604-003</h2>
+
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">Diterima oleh</p>
+                        <p class="font-bold text-gray-800">Budi - Petugas</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-t-2 border-gray-300 my-4 flex-shrink-0" />
+
+            <p class="font-medium text-gray-800 mb-4 flex-shrink-0">Daftar alat dan barang peminjaman Anda:</p>
+
+            <div class="flex-1 flex flex-col gap-6 overflow-y-auto pr-3 pb-2 custom-scrollbar">
+
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 border border-gray-400 rounded-xl flex-shrink-0 overflow-hidden">
+                            </div>
+                            <div>
+                                <div class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                                    Nama Barang <span class="text-sm font-medium text-[#4D4C7D] bg-gray-200 px-2 rounded">x3</span>
+                                </div>
+                                <div class="text-sm text-gray-600 mt-1">1 jam 30 menit</div>
+                            </div>
+                        </div>
+                        <div class="text-right flex-shrink-0">
+                            <div class="text-xs text-gray-500 mb-1">Waktu tersisa</div>
+                            <div class="font-mono font-bold text-xl text-[#363062]">00:56:45</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <button class="flex items-center justify-center gap-2 px-4 py-2 border border-transparent rounded-full text-sm font-medium bg-[#F99417] text-white w-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363t-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3t.488.125t.387.375l9.25 16q.15.25.138.513t-.138.487t-.35.363t-.5.137zm1.725-2h15.1L12 6zm8.263-1.287Q13 17.425 13 17t-.288-.712T12 16t-.712.288T11 17t.288.713T12 18t.713-.288m0-3Q13 14.425 13 14v-3q0-.425-.288-.712T12 10t-.712.288T11 11v3q0 .425.288.713T12 15t.713-.288M12 12.5"/>
+                            </svg>
+                            <span>Kembalikan sekarang</span>
+                        </button>
+                        <button class="py-2 border border-gray-400 rounded-full text-sm font-medium text-white bg-gray-400 hover:bg-gray-50 hover:text-[#363062] hover:border-[#363062] transition-colors">Kembalikan</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 border border-gray-400 rounded-xl flex-shrink-0 overflow-hidden"></div>
+                            <div>
+                                <div class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                                    Kamera Sony <span class="text-sm font-medium text-[#4D4C7D] bg-gray-200 px-2 rounded">x2</span>
+                                </div>
+                                <div class="text-sm text-gray-600 mt-1">1 jam 30 menit</div>
+                            </div>
+                        </div>
+                        <div class="text-right flex-shrink-0">
+                            <div class="text-xs text-gray-500 mb-1">Waktu tersisa</div>
+                            <div class="font-mono font-bold text-xl text-[#363062]">00:56:45</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <button class="flex items-center justify-center gap-2 px-4 py-2 border border-transparent rounded-full text-sm font-medium bg-[#F99417] text-white w-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363t-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3t.488.125t.387.375l9.25 16q.15.25.138.513t-.138.487t-.35.363t-.5.137zm1.725-2h15.1L12 6zm8.263-1.287Q13 17.425 13 17t-.288-.712T12 16t-.712.288T11 17t.288.713T12 18t.713-.288m0-3Q13 14.425 13 14v-3q0-.425-.288-.712T12 10t-.712.288T11 11v3q0 .425.288.713T12 15t.713-.288M12 12.5"/>
+                            </svg>
+                            <span>Kembalikan sekarang</span>
+                        </button>
+                        <button class="py-2 border border-gray-400 rounded-full text-sm font-medium text-white bg-gray-400 hover:bg-gray-50 hover:text-[#363062] hover:border-[#363062] transition-colors">Kembalikan</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 border border-gray-400 rounded-xl flex-shrink-0 overflow-hidden"></div>
+                            <div>
+                                <div class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                                    Tripod <span class="text-sm font-medium text-[#4D4C7D] bg-gray-200 px-2 rounded">x1</span>
+                                </div>
+                                <div class="text-sm text-gray-600 mt-1">1 jam 30 menit</div>
+                            </div>
+                        </div>
+                        <div class="text-right flex-shrink-0">
+                            <div class="text-xs text-gray-500 mb-1">Waktu tersisa</div>
+                            <div class="font-mono font-bold text-xl text-[#363062]">00:56:45</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <button class="flex items-center justify-center gap-2 px-4 py-2 border border-transparent rounded-full text-sm font-medium bg-[#F99417] text-white w-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M2.725 21q-.275 0-.5-.137t-.35-.363t-.137-.488t.137-.512l9.25-16q.15-.25.388-.375T12 3t.488.125t.387.375l9.25 16q.15.25.138.513t-.138.487t-.35.363t-.5.137zm1.725-2h15.1L12 6zm8.263-1.287Q13 17.425 13 17t-.288-.712T12 16t-.712.288T11 17t.288.713T12 18t.713-.288m0-3Q13 14.425 13 14v-3q0-.425-.288-.712T12 10t-.712.288T11 11v3q0 .425.288.713T12 15t.713-.288M12 12.5"/>
+                            </svg>
+                            <span>Kembalikan sekarang</span>
+                        </button>
+                        <button class="py-2 border border-gray-400 rounded-full text-sm font-medium text-white bg-gray-400 hover:bg-gray-50 hover:text-[#363062] hover:border-[#363062] transition-colors">Kembalikan</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex-shrink-0 pt-4 mt-2">
+                <hr class="border-t-2 border-gray-300 mb-4" />
+
+                <h4 class="font-bold text-gray-800 mb-3">Durasi peminjaman (Hari)</h4>
+
+                <div class="flex flex-col gap-2 mb-6">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-600">Nama Barang <span class="text-xs font-medium ml-1">x1</span></span>
+                        <span class="font-medium text-gray-800">Sehari</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-600">Kamera Sony <span class="text-xs font-medium ml-1">x1</span></span>
+                        <span class="font-medium text-gray-800">Sehari</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-600">Tripod <span class="text-xs font-medium ml-1">x1</span></span>
+                        <span class="font-medium text-gray-800">Sehari</span>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 rounded-xl p-3">
+                    <p class="text-xs text-center text-gray-500 leading-relaxed">
+                        <span class="font-semibold text-gray-700">Catatan Pengembalian:</span> Harap kembalikan barang sesuai dengan tenggat waktu yang tertera. Keterlambatan, kehilangan, atau kerusakan sebagian/seluruh alat akan dikenakan sanksi sesuai dengan peraturan sistem yang berlaku.
+                    </p>
+                </div>
+            </div>
+
+
             
             {{-- <div class="w-24 h-24 mb-4 text-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">

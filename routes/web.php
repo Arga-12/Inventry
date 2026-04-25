@@ -21,3 +21,9 @@ Route::get('/pengembalian', function() {
 Route::get('/preferensi', function() {
     return view('peminjam.preferensi');
 })->name('peminjam-preferensi');
+
+// Petugas
+
+Route::get('/home-petugas', function() {
+    return view('petugas.dashboard');
+})->name('petugas-home');

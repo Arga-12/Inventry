@@ -9,30 +9,30 @@
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
 
-	<div class="flex h-screen overflow-x-hidden">
-	    <x-navbar />
+    <div class="flex h-screen overflow-hidden">
 
-	    {{-- WRAPPER UTAMA --}}
-	    <div class="flex flex-1">
+        <div class="h-screen sticky left-0 top-0 bg-[#F5F5F5] border-r border-gray-300 w-80 shrink-0 z-20">
+            <x-navbar />
+        </div>
 
-	        {{-- KONTEN KIRI (HEADER + MAIN) --}}
-	        <div class="flex flex-col flex-1 min-w-0">
-	            <x-header />
+        <div class="flex-1 relative flex flex-col h-screen min-w-0 bg-white">
+            
+            <x-header />
 
-	            <main class="flex-1 p-6 overflow-y-auto">
-	                @yield('content')
-	            </main>
-	        </div>
+            <main class="flex-1 overflow-y-auto p-6 pt-20">
+                @yield('content')
+            </main>
 
-	        {{-- SIDEBAR KANAN --}}
-	        @if (request()->routeIs('peminjam-alat'))
-	            <aside class="w-80 shrink-0 border-l bg-white">
-	                <x-card-peminjaman />
-	            </aside>
-	        @endif
+        </div>
 
-	    </div>
-	</div>
-	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        @if (request()->routeIs('peminjam-alat'))
+            <aside class="w-80 h-screen shrink-0 bg-[#F5F5F5] border-l border-gray-300 flex flex-col z-20">
+                <x-card-peminjaman />
+            </aside>
+        @endif
+
+    </div>
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
