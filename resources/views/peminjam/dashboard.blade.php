@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="mx-auto py-12">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
 
 			{{-- baris1 kolom1 --}}
 			<div class="flex flex-col gap-8 h-full">
