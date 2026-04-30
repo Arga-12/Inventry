@@ -40,3 +40,9 @@ Route::get('/home-pengembalian', function() {
 Route::get('/home-laporan', function() {
     return view('petugas.laporan');
 })->name('petugas-laporan');
+
+// Admin
+
+Route::get('/home-admin', function() {
+    return view('admin.dashboard');
+})->name('admin-home');

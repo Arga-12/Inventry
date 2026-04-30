@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="mx-auto py-12">
+	<div class="mx-auto py-8 px-4 h-screen">
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
 
 			{{-- baris1 kolom1 --}}

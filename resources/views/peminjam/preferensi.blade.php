@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-12">
+<div class="mx-auto py-8 px-4 h-screen">
 	<div class="w-full flex flex-col gap-10">
 
 		<div class="flex flex-col">

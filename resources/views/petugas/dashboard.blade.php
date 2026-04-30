@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-12">
+<div class="mx-auto py-8 px-4 h-screen">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
 
         {{-- baris1 kolom1 --}}
         <div class="lg:col-span-1 flex flex-col gap-3">
             <h1 class="text-4xl font-bold tracking-tight">Dashboard</h1>
             <p class="text-gray-500 font-medium leading-relaxed text-lg">
-                Selamat datang di Inventry. Mari pantau dan kelola antrean persetujuan peminjaman serta pengembalian alat hari ini.
+                Selamat datang di Inventry, mari pantau dan kelola antrean persetujuan peminjaman serta pengembalian alat hari ini.
             </p>
         </div>
 

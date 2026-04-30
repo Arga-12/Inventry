@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-12">
+<div class="mx-auto py-8 px-4 h-screen">
 
     <div class="flex flex-col mb-8">
         <h1 class="text-4xl font-bold text-gray-900">Manajemen Peminjaman</h1>
