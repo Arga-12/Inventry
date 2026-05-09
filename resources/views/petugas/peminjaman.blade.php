@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4 h-screen flex flex-col overflow-hidden">
+<div class="mx-auto py-8 px-4 flex flex-col overflow-hidden">
 	<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch flex-1 min-h-0 mb-6 h-screen">
 
 		<div class="lg:col-span-3 flex flex-col gap-1 mb-2">

@@ -2,21 +2,53 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Middleware
+use App\Http\Middleware\RoleMiddleware;
+
+//Login
+use App\Http\Controllers\AuthController;
+
+//Peminjam
+use App\Http\Controllers\Peminjam\DashboardController as PeminjamDashboard;
+use App\Http\Controllers\Peminjam\PeminjamanController as PeminjamPeminjaman;
+use App\Http\Controllers\Peminjam\PengembalianController as PeminjamPengembalian;
+
+//Petugas
+use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
+
+//Admin
+use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function() {
-    return view('peminjam.dashboard');
-})->name('peminjam-home');
+//Route login woyyyyyyyyyy
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/peminjaman', function() {
-    return view('peminjam.peminjaman');
-})->name('peminjam-alat');
+//Route logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/pengembalian', function() {
-    return view('peminjam.pengembalian');
-})->name('peminjam-pengembalian');
+//Route middleware Admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin-home');
+});
+
+//Route middleware Petugas
+Route::middleware(['auth', 'role:petugas'])->group(function () {
+
+    Route::get('/petugas/dashboard', [PetugasDashboard::class, 'index']);
+});
+
+//Route middleware Peminjam
+Route::middleware(['auth', 'role:peminjam'])->group(function () {
+
+    Route::get('/dashboard', [PeminjamDashboard::class, 'index'])->name('peminjam-home');
+    Route::get('/peminjaman', [PeminjamPeminjaman::class, 'index'])->name('peminjam-alat');
+    Route::get('/pengembalian', [PeminjamPengembalian::class, 'index'])->name('peminjam-pengembalian');
+});
 
 Route::get('/preferensi', function() {
     return view('peminjam.preferensi');
@@ -46,3 +78,27 @@ Route::get('/home-laporan', function() {
 Route::get('/home-admin', function() {
     return view('admin.dashboard');
 })->name('admin-home');
+
+Route::get('/users-admin', function() {
+    return view('admin.users.index');
+})->name('admin-users');
+
+Route::get('/alat-admin', function() {
+    return view('admin.alatbarang.index');
+})->name('admin-alat');
+
+Route::get('/peminjaman-admin', function() {
+    return view('admin.peminjaman.index');
+})->name('admin-peminjaman');
+
+Route::get('/pengembalian-admin', function() {
+    return view('admin.pengembalian.index');
+})->name('admin-pengembalian');
+
+Route::get('/logaktivitas-admin', function() {
+    return view('admin.logaktivitas');
+})->name('admin-logakivitas');
+
+Route::get('/create-admin', function() {
+    return view('admin.alatbarang.create');
+})->name('admin-create');

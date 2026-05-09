@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4 h-screen">
+<div class="mx-auto py-8 px-4">
 	<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch">
 
 		<div class="lg:col-span-3 flex flex-col gap-1 mb-2">
@@ -146,33 +146,97 @@
 					</thead>
 
 					{{-- BODY --}}
-					<tbody class="text-gray-800">
+					<tbody class="text-[#363062]">
 
 						{{-- ROW --}}
-						<tr class="border-b border-gray-400">
+						@for ($i = 0; $i < 9; $i++)
+						<tr class="border-b border-gray-500">
 							<td class="py-3 px-4">1.</td>
-							<td class="py-3 px-4">Pasokon</td>
-							<td class="py-3 px-4">Komputer</td>
-							<td class="py-3 px-4">45 Menit</td>
-							<td class="py-3 px-4">45 Menit</td>
+							<td class="py-3 px-4 font-semibold">#INVT-2605-001</td>
+							<td class="py-3 px-4">Argandull</td>
 							<td class="py-3 px-4">
-								<span class="px-3 py-1 text-xs rounded-lg bg-gray-500 text-white">
-									12 Tersisa
-								</span>
+								<div class="flex items-center gap-2">
+
+									{{-- TANGGAL --}}
+									<div class="px-3 py-1 bg-gray-100 text-[#363062] rounded-full text-xs font-medium">
+										12 - 05 - 2026
+									</div>
+
+									{{-- WAKTU --}}
+									<div class="px-3 py-1 bg-gray-100 text-[#363062] rounded-full text-xs font-medium">
+										06:45
+									</div>
+
+								</div>
 							</td>
-							<td class="py-3 px-4 text-left">2 Alat</td>
+							<td class="py-3 px-4">
+								<div class="flex items-center gap-2">
+
+									{{-- TANGGAL --}}
+									<div class="px-3 py-1 bg-gray-100 text-[#363062] rounded-full text-xs font-medium">
+										12 - 05 - 2026
+									</div>
+
+									{{-- WAKTU --}}
+									<div class="px-3 py-1 bg-gray-100 text-[#363062] rounded-full text-xs font-medium">
+										17:12
+									</div>
+
+								</div>
+							</td>
+							<td class="py-3 px-4 text-left">4 Alat</td>
+							<td class="py-3 px-4 text-left">
+								<div class="px-3 py-1 rounded-full bg-green-300 font-semibold text-center">
+									Selesai
+								</div>
+							</td>
 						</tr>
+						@endfor
 
 						{{-- EMPTY STATE --}}
-						<tr>
+						{{-- <tr>
 							<td colspan="6" class="text-center py-10 text-gray-400">
 								Belum ada data
 							</td>
-						</tr>
+						</tr> --}}
 
 					</tbody>
 
 				</table>
+				<div class="flex items-center justify-between mt-6">
+
+					<div class="text-sm text-gray-500">
+						Halaman 1 dari 10
+					</div>
+
+					<div class="flex items-center gap-2">
+
+						<button class="p-3 rounded-full border text-sm flex items-center justify-center">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-180" viewBox="0 0 12 24"><defs><path id="SVG1pzpbdYY" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs><use fill-rule="evenodd" href="#SVG1pzpbdYY" transform="rotate(-180 5.02 9.505)"/></svg>
+						</button>
+
+						<div class="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
+
+							<button class="px-3 py-1 rounded-full text-sm bg-[#363062] text-white">
+								1
+							</button>
+
+							<button class="px-3 py-1 rounded-full text-sm">
+								2
+							</button>
+
+							<button class="px-3 py-1 rounded-full text-sm">
+								3
+							</button>
+
+						</div>
+
+						<button class="p-3 rounded-full border text-sm flex items-center justify-center">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 12 24"><defs><path id="SVG1pzpbdYY" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs><use fill-rule="evenodd" href="#SVG1pzpbdYY" transform="rotate(-180 5.02 9.505)"/></svg>
+						</button>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

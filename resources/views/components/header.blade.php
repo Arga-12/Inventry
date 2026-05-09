@@ -11,7 +11,7 @@
                 <h2 class="text-sm font-semibold text-[#363062]">Argandull</h2>
                 <div class="h-4 w-full flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#363062]" viewBox="0 0 24 24"><path fill="currentColor" d="M12 6c1.654 0 3 1.346 3 3s-1.346 3-3 3s-3-1.346-3-3s1.346-3 3-3m0-2C9.236 4 7 6.238 7 9s2.236 5 5 5s5-2.238 5-5s-2.236-5-5-5m0 13c2.021 0 3.301.771 3.783 1.445c-.683.26-1.969.555-3.783.555c-1.984 0-3.206-.305-3.818-.542C8.641 17.743 9.959 17 12 17m0-2c-3.75 0-6 2-6 4c0 1 2.25 2 6 2c3.518 0 6-1 6-2c0-2-2.354-4-6-4"/></svg>
-                    <p class="text-xs text-[#363062] font-light">Peminjam</p>
+                    <p class="text-xs text-[#363062] font-light">{{ ucfirst(auth()->user()->role) }}</p>
                 </div>
             </div>
         </div>
@@ -28,9 +28,12 @@
         </button>
 
         <div x-show="open" class="absolute right-0 mt-6 w-48 rounded-xl bg-white border border-gray-200 shadow-lg py-1">
-            <a href="#" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
+            <a href="{{ route('peminjam-preferensi') }}" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
             <div class="border-t border-gray-100 my-1"></div>
-            <a href="#" class="block px-4 py-2 text-xs font-bold text-red-500 hover:bg-red-50">Keluar</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="block text-left w-full px-4 py-2 text-xs font-bold text-red-500 hover:bg-red-50">Keluar</button>
+            </form>
         </div>
     </div>
 </div>

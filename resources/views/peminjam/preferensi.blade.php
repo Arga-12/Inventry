@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4 h-screen">
+<div class="mx-auto py-8 px-4">
 	<div class="w-full flex flex-col gap-10">
 
 		<div class="flex flex-col">
-			<h1 class="text-4xl font-bold text-gray-900">Pengaturan & Preferensi</h1>
+			<h1 class="text-4xl font-bold">Pengaturan & Preferensi</h1>
 			<p class="text-gray-500">Atur pengaturan profil Anda</p>
 		</div>
 
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
 			<div class="flex flex-col gap-1">
-				<h2 class="text-3xl font-bold text-gray-800">Detail Profil</h2>
+				<h2 class="text-3xl font-bold">Detail Profil</h2>
 				<p class="text-gray-500 text-sm">Keterangan mengenai profil Anda</p>
 			</div>
 
@@ -39,20 +39,20 @@
 					<div class="flex flex-col flex-1 gap-4 w-full">
 
 						<div class="flex flex-col gap-2 flex-1">
-							<label class="text-sm font-medium text-gray-700">Nama</label>
-							<input type="text" value="Argandull" disabled class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-100 text-gray-400 cursor-not-allowed focus:outline-none">
+							<label class="text-sm font-medium">Nama</label>
+							<input type="text" value="Argandull" disabled class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-100 text-gray-500 cursor-not-allowed focus:outline-none">
 						</div>
 
 						<div class="flex flex-col gap-2 flex-1">
-							<label class="text-sm font-medium text-gray-700">Role</label>
-							<input type="text" value="Peminjam" disabled class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-100 text-gray-400 cursor-not-allowed focus:outline-none">
+							<label class="text-sm font-medium">Role</label>
+							<input type="text" value="Peminjam" disabled class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-100 text-gray-500 cursor-not-allowed focus:outline-none">
 						</div>
 
 					</div>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label class="text-sm font-medium text-gray-700">Email</label>
+					<label class="text-sm font-medium">Email</label>
 					<input type="email" placeholder="Masukkan email..." value="argarill226@gmail.com" class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none">
 				</div>
 
@@ -64,19 +64,19 @@
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
 			<div class="flex flex-col gap-1">
-				<h2 class="text-3xl font-bold text-gray-800">Keamanan Akun</h2>
+				<h2 class="text-3xl font-bold">Keamanan Akun</h2>
 				<p class="text-gray-500 text-sm">Ubah password Anda untuk lebih mengamankan akun</p>
 			</div>
 
 			<div class="flex flex-col gap-6">
 
 				<div class="flex flex-col gap-2">
-					<label class="text-sm font-medium text-gray-700">Password saat ini</label>
+					<label class="text-sm font-medium">Password saat ini</label>
 					<input type="password" placeholder="Masukkan password Anda saat ini..." class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none">
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label class="text-sm font-medium text-gray-700">Password baru</label>
+					<label class="text-sm font-medium">Password baru</label>
 					<input type="password" placeholder="Masukkan password baru Anda..." class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none">
 				</div>
 
