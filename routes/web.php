@@ -18,6 +18,7 @@ use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
 
 //Admin
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\Admin\KategoriController as AdminKategori;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +34,19 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Route middleware Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
+    //Dashboard
     Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin-home');
+
+    //Kategori
+    Route::get('/admin/kategori', [AdminKategori::class, 'index'])->name('admin-kategori');
+
+    Route::get('/admin/kategori/create', [AdminKategori::class, 'create'])->name('admin-kategori-create');
+    Route::post('/admin/kategori/create', [AdminKategori::class, 'store'])->name('admin-kategori-store');
+
+    Route::get('admin/kategori/{kategori}/edit', [AdminKategori::class, 'edit'])->name('admin-kategori-edit');
+    Route::put('admin/kategori/{kategori}', [AdminKategori::class, 'update'])->name('admin-kategori-update');
+
+    Route::delete('/admin/kategori/{kategori}',[AdminKategori::class, 'destroy'])->name('admin-kategori-destroy');
 });
 
 //Route middleware Petugas

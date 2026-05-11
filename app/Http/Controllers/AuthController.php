@@ -37,16 +37,16 @@ class AuthController extends Controller
             //bikin session baru untuk mencegah serangan timpa session fixation
             $request->session()->regenerate();
 
-            $role = Auth::user()->role;
+            $role = Auth::user()?->role;
 
             if ($role === 'admin') {
-                return redirect()->intended('/admin/dashboard');
+                return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang Admin!');
             } elseif ($role === 'petugas') {
-                return redirect()->intended('/petugas/dashboard');
+                return redirect()->intended('/petugas/dashboard')->with('success', 'Selamat datang Petugas!');
             }
 
             //set return default jika role unknown dari pengondisian
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('success', 'Selamat datang kembali!');
         }
 
         return back()->withErrors([
