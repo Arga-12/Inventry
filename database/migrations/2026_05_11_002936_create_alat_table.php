@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('durasi')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

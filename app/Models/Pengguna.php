@@ -33,4 +33,28 @@ class Pengguna extends Authenticatable
     protected $casts = [
         'password' => 'hashed', // Otomatis meng-hash password
     ];
+
+    /**
+     * sebagai peminjam
+     */
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'peminjam_id', 'id');
+    }
+
+    /**
+     * sebagai petugas peminjaman
+     */
+    public function verifikasiPeminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'petugas_id', 'id');
+    }
+
+    /**
+     * sebagai petugas pengembalian
+     */
+    public function verifikasiPengembalian()
+    {
+        return $this->hasMany(Pengembalian::class, 'petugas_id', 'id');
+    }
 }

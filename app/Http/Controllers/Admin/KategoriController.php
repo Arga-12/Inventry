@@ -11,10 +11,15 @@ class KategoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //ambil semua data all()
-        $kategori = Kategori::all();
+        //untuk logic search
+        $search = $request->input('search');
+
+        //eloquent untuk searchnya dengan where melalui nama_kategori
+        $kategori = Kategori::when($search, function($query, $search) {
+            return $query->where('nama_kategori', 'like', '%' . $search . '%');
+        })->get();
     
         //return view index
         return view('admin.kategori.index', compact('kategori'));
@@ -98,10 +103,14 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-        //langsung delete aja pake bninding
+        // vcek apakah ada alat yang menggunakan kategori ini
+        if ($kategori->alat()->exists()) {
+            return back()->with('error', "Gagal menghapus! Kategori '{$kategori->nama_kategori}' masih memiliki alat di dalamnya. Hapus atau pindahkan alatnya terlebih dahulu.");
+        }
+
+        // ifff kosong, baru hapus
         $kategori->delete();
 
-        //return redirect jika sudah menjalankan semua baris functionnya
         return redirect()->route('admin-kategori')->with('success', 'Kategori berhasil dihapus');
     }
 }

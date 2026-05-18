@@ -20,4 +20,9 @@ class Kategori extends Model
     {
         return 'kode_kategori';
     }
+
+    //relasi one to many
+    public function alat() {
+        return $this->hasMany(Alat::class, 'kategori_id', 'id');
+    }
 }

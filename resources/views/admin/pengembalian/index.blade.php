@@ -32,13 +32,13 @@
 		</div>
 
 		<div class="flex items-end gap-3">
-			<span class="text-6xl font-bold text-[#363062]">17</span>
+			<span class="text-6xl font-bold text-[#363062]">{{ $stats['menunggu_verifikasi'] }}</span>
 			<span class="text-sm text-gray-500 mb-2">Pengembali</span>
 		</div>
 
 		<div class="flex items-center gap-3">
 			<span class="px-3 py-1 text-white font-semibold bg-gradient-to-r from-[#F99417] to-[#F99417]/70 rounded-full text-xs">
-				34 Alat
+				{{ $stats['total_item_menunggu'] }} Alat
 			</span>
 			<span class="text-xs text-gray-500">
 				Dalam proses pengembalian
@@ -55,13 +55,13 @@
 		</h2>
 
 		<div class="flex items-end gap-3">
-			<span class="text-6xl font-bold text-[#363062]">20</span>
+			<span class="text-6xl font-bold text-[#363062]">{{ $stats['selesai'] }}</span>
 			<span class="text-sm text-gray-500 mb-2">Data</span>
 		</div>
 
 		<div class="flex items-center gap-3">
 			<span class="px-3 py-1 text-white font-semibold bg-gradient-to-r from-[#363062] to-[#4D4C7D]/70 rounded-full text-xs">
-				7 Kategori
+				{{ $stats['total_kategori_selesai'] }} Kategori
 			</span>
 			<span class="text-xs text-gray-500">
 				Alat & barang dalam proses pengembalian
@@ -78,7 +78,7 @@
 		</h2>
 
 		{{-- TOP BAR --}}
-		<div class="flex justify-between items-centerm">
+		<div class="flex justify-between items-center">
 
 			<div class="flex items-center gap-3 flex-wrap">
 
@@ -106,7 +106,7 @@
 
 		<div class="max-h-[400px] overflow-y-auto pr-2 flex flex-col gap-4">
 
-			@for ($i = 0; $i < 3; $i++)
+			@forelse ($menunggu as $pengembalian)
 			{{-- CONTENT --}}
 			<div class="bg-white border border-gray-300 rounded-[20px] p-4 shadow-lg">
 
@@ -114,21 +114,38 @@
 				<div class="flex items-start justify-between">
 					<div class="flex items-center gap-3">
 						<h3 class="text-2xl font-semibold">
-							#INVT-2605-006
+							#{{ $pengembalian->kode_pengembalian }}
 						</h3>
 
-						<span class="px-3 py-1 rounded-full bg-yellow-100 text-[#F99417] text-xs font-semibold">
-							Dikembalikan
+						<span class="px-3 py-1 rounded-full text-xs font-semibold {{ $pengembalian->status_badge }}">
+							{{ $pengembalian->status_label }}
 						</span>
 					</div>
 
 					<div class="flex items-center gap-2">
 						<div class="w-8 h-8 rounded-full overflow-hidden">
-							<img src="{{ asset('images/mygw.jpeg') }}" alt="user" class="w-full h-full object-cover">
+							@if($pengembalian->peminjaman->peminjam->foto_profil)
+								<img 
+									src="{{ asset('storage/' . $pengembalian->peminjaman->peminjam->foto_profil) }}"
+									alt="user"
+									class="w-full h-full object-cover"
+								>
+							@else
+								<img 
+									src="{{ asset('images/mygw.jpeg') }}"
+									alt="user"
+									class="w-full h-full object-cover"
+								>
+							@endif
 						</div>
 						<div class="text-sm">
-							<p class="font-medium">Budi Tarmiji</p>
-							<p class="text-xs text-gray-500">3 Item</p>
+							<p class="font-medium">
+								{{ $pengembalian->peminjaman->peminjam->nama_lengkap }}
+							</p>
+
+							<p class="text-xs text-gray-500">
+								{{ $pengembalian->detailPengembalian->count() }} Item
+							</p>
 						</div>
 					</div>
 				</div>
@@ -146,58 +163,120 @@
 
 						<div class="flex flex-col text-right">
 							<p class="whitespace-nowrap">
-								Tanggal pengajuan: <span class="text-[#363062] font-semibold">5 - 5 - 2026</span>
+								Waktu peminjaman: 
+								<span class="text-[#363062] font-semibold">
+									{{ \Carbon\Carbon::parse($pengembalian->peminjaman->tanggal_disetujui)->format('H:i | d - m - Y') }}
+								</span>
 							</p>
+
 							<p class="whitespace-nowrap">
-								Waktu diterima: <span class="text-[#363062] font-semibold">07:45 | 5 - 5 - 2026</span>
+								Waktu pengajuan kembali: 
+								<span class="text-[#363062] font-semibold">
+									{{ \Carbon\Carbon::parse($pengembalian->created_at)->format('H:i | d - m - Y') }}
+								</span>
 							</p>
 						</div>
 					</div>
 
 					{{-- LIST --}}
-					@for ($j = 0; $j < 3; $j++)
+					@foreach ($pengembalian->detailPengembalian as $detail)
 					<div class="flex items-center justify-between gap-4">
 
 						{{-- LEFT ITEM --}}
 						<div class="flex items-center gap-3">
 							<div class="w-12 h-12 rounded-xl border flex items-center justify-center overflow-hidden">
-								<img src="{{ asset('images/id2.jpg') }}" alt="img" class="w-full h-full object-cover">
+								@if($detail->detailPeminjaman->alat->gambar)
+									<img 
+										src="{{ asset('storage/' . $detail->detailPeminjaman->alat->gambar) }}"
+										alt="img"
+										class="w-full h-full object-cover"
+									>
+								@else
+									<img 
+										src="{{ asset('images/id2.jpg') }}"
+										alt="img"
+										class="w-full h-full object-cover"
+									>
+								@endif
 							</div>
 
 							<div>
-								<p class="text-sm">Nama alat <span class="text-xs font-medium text-gray-500">×2</span></p>
+								<p class="text-sm">{{ $detail->detailPeminjaman->alat->nama }} <span class="text-xs font-medium text-gray-500">×{{ $detail->jumlah_kembali }}</span></p>
 								<div class="flex items-center gap-1">
-									<div class="h-2 w-2 rounded-full bg-[#F99417]"></div>
-									<p class="text-xs text-gray-500">kategori alat</p>
+									<div class="h-2 w-2 rounded-full" style="background: {{ $detail->detailPeminjaman->alat->kategori->warna }}"></div>
+										<p class="text-xs text-gray-500">{{ $detail->detailPeminjaman->alat->kategori->nama }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
 
 						{{-- RIGHT DURATION --}}
 						<div class="text-right text-xs text-gray-500 whitespace-nowrap">
-							<div class="text-right text-xs text-gray-500 whitespace-nowrap">
-							<p>Durasi peminjaman - Sehari</p>
-							<span class="font-semibold text-black">00:00:00 - selesai</span>
-						</div>
+							<p>
+								Durasi peminjaman -
+								{{ $detail->detailPeminjaman->alat->durasi }} Menit
+							</p>
+
+							@php
+								$mulai = \Carbon\Carbon::parse($pengembalian->peminjaman->tanggal_disetujui);
+
+								$sekarang = now();
+
+								$durasiDipakai = $mulai->diff($sekarang);
+							@endphp
+
+							<div class="flex items-center justify-end gap-1">
+								<svg xmlns="http://www.w3.org/2000/svg" 
+									class="h-4 w-4" 
+									viewBox="0 0 24 24">
+									<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+										<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/>
+										<path d="M12 7v5l3 3"/>
+									</g>
+								</svg>
+
+								<span class="font-semibold text-black">
+									{{ $durasiDipakai->h }} Jam
+									{{ $durasiDipakai->i }} Menit
+								</span>
+							</div>
 						</div>
 
 					</div>
-					@endfor
-
+					@endforeach
 				</div>
 
 				{{-- ACTION --}}
 				<div class="flex justify-end gap-2 mt-4">
-					<button class="px-4 py-2 border border-transparent rounded-full bg-[#F99417] text-white text-sm hover:bg-white hover:text-[#F99417] hover:border-[#F99417] transition">
+					<a 
+						href="{{ route('admin-pengembalian-edit', $pengembalian) }}"
+						class="px-4 py-2 border border-transparent rounded-full bg-[#F99417] text-white text-sm hover:bg-white hover:text-[#F99417] hover:border-[#F99417] transition"
+					>
 						Edit
-					</button>
-					<button class="px-4 py-1 border border-transparent rounded-full text-sm bg-red-500 text-white hover:bg-white hover:text-red-500 hover:border-red-500 transition">
-						Hapus
-					</button>
+					</a>
+
+					<form 
+						action="{{ route('admin-pengembalian-destroy', $pengembalian) }}"
+						method="POST"
+						onsubmit="return confirm('Yakin ingin menghapus data pengembalian ini?')"
+					>
+						@csrf
+						@method('DELETE')
+
+						<button 
+							type="submit"
+							class="px-4 py-2 border border-transparent rounded-full text-sm bg-red-500 text-white hover:bg-white hover:text-red-500 hover:border-red-500 transition"
+						>
+							Hapus
+						</button>
+					</form>
 				</div>
 
 			</div>
-			@endfor
+			@empty
+			<div class="bg-white border border-gray-300 rounded-[20px] p-6 text-center text-gray-500">
+				Tidak ada data pengembalian.
+			</div>
+			@endforelse
 		</div>
 
 	</div>
@@ -210,7 +289,7 @@
 		</h2>
 
 		{{-- TOP BAR --}}
-		<div class="flex justify-between items-centerm">
+		<div class="flex justify-between items-center">
 
 			<div class="flex items-center gap-3 flex-wrap">
 
@@ -238,7 +317,7 @@
 
 		<div class="max-h-[400px] overflow-y-auto pr-2 flex flex-col gap-4">
 
-			@for ($i = 0; $i < 3; $i++)
+			@forelse ($selesai as $pengembalian)
 			{{-- CONTENT --}}
 			<div class="bg-white border border-gray-300 rounded-[20px] p-4 shadow-lg">
 
@@ -246,21 +325,31 @@
 				<div class="flex items-start justify-between">
 					<div class="flex items-center gap-3">
 						<h3 class="text-2xl font-semibold">
-							#INVT-2605-006
+							#{{ $pengembalian->kode_pengembalian }}
 						</h3>
 
-						<span class="px-3 py-1 rounded-full bg-[#363062]/40 text-white text-xs font-semibold">
-							Selesai
+						<span class="px-3 py-1 rounded-full text-xs font-semibold {{ $pengembalian->status_badge }}">
+							{{ $pengembalian->status_label }}
 						</span>
 					</div>
 
 					<div class="flex items-center gap-2">
-						<div class="w-8 h-8 rounded-full overflow-hidden">
-							<img src="{{ asset('images/mygw.jpeg') }}" alt="user" class="w-full h-full object-cover">
-						</div>
+						@if($pengembalian->peminjaman->peminjam->foto_profil)
+							<img 
+								src="{{ asset('storage/' . $pengembalian->peminjaman->peminjam->foto_profil) }}"
+								alt="user"
+								class="w-full h-full object-cover"
+							>
+						@else
+							<img 
+								src="{{ asset('images/mygw.jpeg') }}"
+								alt="user"
+								class="w-full h-full object-cover"
+							>
+						@endif
 						<div class="text-sm">
-							<p class="font-medium">Budi Tarmiji</p>
-							<p class="text-xs text-gray-500">3 Item</p>
+							<p class="font-medium">{{ $pengembalian->peminjaman->peminjam->nama_lengkap }}</p>
+							<p class="text-xs text-gray-500">{{ $pengembalian->detailPengembalian->count() }} Item</p>
 						</div>
 					</div>
 				</div>
@@ -278,59 +367,107 @@
 
 						<div class="flex flex-col text-right">
 							<p class="whitespace-nowrap">
-								Waktu peminjaman: <span class="text-[#363062] font-semibold">07:45 | 5 - 5 - 2026</span>
+								Waktu peminjaman: 
+								<span class="text-[#363062] font-semibold">
+									{{ \Carbon\Carbon::parse($pengembalian->peminjaman->tanggal_disetujui)->format('H:i | d - m - Y') }}
+								</span>
 							</p>
 							<p class="whitespace-nowrap">
-								Waktu dikembalikan: <span class="text-[#363062] font-semibold">09:20 | 5 - 5 - 2026</span>
+								Waktu dikembalikan: 
+								<span class="text-[#363062] font-semibold">
+									{{ \Carbon\Carbon::parse($pengembalian->tanggal_dikembalikan)->format('H:i | d - m - Y') }}
+								</span>
 							</p>
 						</div>
 					</div>
 
 					{{-- LIST --}}
-					@for ($j = 0; $j < 3; $j++)
+					@foreach ($pengembalian->detailPengembalian as $detail)
 					<div class="flex items-center justify-between gap-4">
 
 						{{-- LEFT ITEM --}}
 						<div class="flex items-center gap-3">
 							<div class="w-12 h-12 rounded-xl border flex items-center justify-center overflow-hidden">
-								<img src="{{ asset('images/id2.jpg') }}" alt="img" class="w-full h-full object-cover">
+								<img 
+									src="{{ asset('storage/' . $detail->detailPeminjaman->alat->gambar) }}"
+									alt="img"
+									class="w-full h-full object-cover"
+								>
 							</div>
 
 							<div>
-								<p class="text-sm">Nama alat <span class="text-xs font-medium text-gray-500">×2</span></p>
+								<p class="text-sm">{{ $detail->detailPeminjaman->alat->nama_alat }} <span class="text-xs font-medium text-gray-500">×{{ $detail->jumlah_kembali }}</span></p>
 								<div class="flex items-center gap-1">
-									<div class="h-2 w-2 rounded-full bg-[#F99417]"></div>
-									<p class="text-xs text-gray-500">kategori alat</p>
+									<div class="h-2 w-2 rounded-full" style="background: {{ $detail->detailPeminjaman->alat->kategori->warna }}"></div>
+									<p class="text-xs text-gray-500">{{ $detail->detailPeminjaman->alat->kategori->nama_kategori }}</p>
 								</div>
 							</div>
 						</div>
 
 						{{-- RIGHT DURATION --}}
 						<div class="text-right text-xs text-gray-500 whitespace-nowrap">
-							<p>Durasi peminjaman - Sehari</p>
+							<p>Durasi peminjaman - {{ $detail->detailPeminjaman->alat->durasi }} Menit</p>
+							@php
+								$mulai = \Carbon\Carbon::parse($pengembalian->peminjaman->tanggal_disetujui);
+								$selesai = \Carbon\Carbon::parse($pengembalian->tanggal_dikembalikan);
+
+								$durasiDipakai = $mulai->diff($selesai);
+							@endphp
+
 							<div class="flex items-center justify-end gap-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></g></svg>
-								<span class="font-semibold text-black">45 Menit - terpakai</span>
+								<svg xmlns="http://www.w3.org/2000/svg" 
+									class="h-4 w-4" 
+									viewBox="0 0 24 24">
+									<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+										<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/>
+										<path d="M12 7v5l3 3"/>
+									</g>
+								</svg>
+
+								<span class="font-semibold text-black">
+									{{ $durasiDipakai->h }} Jam 
+									{{ $durasiDipakai->i }} Menit
+								</span>
 							</div>
 						</div>
 
 					</div>
-					@endfor
+					@endforeach
 
 				</div>
 
 				{{-- ACTION --}}
 				<div class="flex justify-end gap-2 mt-4">
-					<button class="px-4 py-2 border border-transparent rounded-full bg-[#F99417] text-white text-sm hover:bg-white hover:text-[#F99417] hover:border-[#F99417] transition">
+					<a 
+						href="{{ route('admin-pengembalian-edit', $pengembalian) }}"
+						class="px-4 py-2 border border-transparent rounded-full bg-[#F99417] text-white text-sm hover:bg-white hover:text-[#F99417] hover:border-[#F99417] transition"
+					>
 						Edit
-					</button>
-					<button class="px-4 py-1 border border-transparent rounded-full text-sm bg-red-500 text-white hover:bg-white hover:text-red-500 hover:border-red-500 transition">
-						Hapus
-					</button>
+					</a>
+
+					<form 
+						action="{{ route('admin-pengembalian-destroy', $pengembalian) }}"
+						method="POST"
+						onsubmit="return confirm('Yakin ingin menghapus data pengembalian ini?')"
+					>
+						@csrf
+						@method('DELETE')
+
+						<button 
+							type="submit"
+							class="px-4 py-2 border border-transparent rounded-full text-sm bg-red-500 text-white hover:bg-white hover:text-red-500 hover:border-red-500 transition"
+						>
+							Hapus
+						</button>
+					</form>
 				</div>
 
 			</div>
-			@endfor
+			@empty
+			<div class="bg-white border border-gray-300 rounded-[20px] p-6 text-center text-gray-500">
+				Tidak ada data pengembalian.
+			</div>
+			@endforelse
 		</div>
 
 	</div>

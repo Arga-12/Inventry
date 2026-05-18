@@ -19,6 +19,9 @@ use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
 //Admin
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\KategoriController as AdminKategori;
+use App\Http\Controllers\Admin\AlatbarangController as AdminAlat;
+use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjaman;
+use App\Http\Controllers\Admin\PengembalianController as AdminPengembalian;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,6 +50,39 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('admin/kategori/{kategori}', [AdminKategori::class, 'update'])->name('admin-kategori-update');
 
     Route::delete('/admin/kategori/{kategori}',[AdminKategori::class, 'destroy'])->name('admin-kategori-destroy');
+
+    //Alat Peminajaman
+    Route::get('/admin/alat', [AdminAlat::class, 'index'])->name('admin-alat');
+
+    Route::get('/admin/alat/create', [AdminAlat::class, 'create'])->name('admin-alat-create');
+    Route::post('/admin/alat/create', [AdminAlat::class, 'store'])->name('admin-alat-store');
+
+    Route::get('admin/alat/{alat}/edit', [AdminAlat::class, 'edit'])->name('admin-alat-edit');
+    Route::put('admin/alat/{alat}', [AdminAlat::class, 'update'])->name('admin-alat-update');
+
+    Route::delete('/admin/alat/{alat}',[AdminAlat::class, 'destroy'])->name('admin-alat-destroy');
+
+    //Peminjaman
+    Route::get('admin/peminjaman', [AdminPeminjaman::class, 'index'])->name('admin-peminjaman');
+
+    Route::get('/admin/peminjaman/create', [AdminPeminjaman::class, 'create'])->name('admin-peminjaman-create');
+    Route::post('/admin/peminjaman/create', [AdminPeminjaman::class, 'store'])->name('admin-peminjaman-store');
+
+    Route::get('/admin/peminjaman/{peminjaman}/edit', [AdminPeminjaman::class, 'edit'])->name('admin-peminjaman-edit');
+    Route::put('/admin/peminjaman/{peminjaman}', [AdminPeminjaman::class, 'update'])->name('admin-peminjaman-update');
+
+    Route::delete('/admin/peminjaman/{peminjaman}', [AdminPeminjaman::class, 'destroy'])->name('admin-peminjaman-destroy');
+
+    //Pengembalian
+    Route::get('admin/pengembalian', [AdminPengembalian::class, 'index'])->name('admin-pengembalian');
+
+    Route::get('/admin/pengembalian/create', [AdminPengembalian::class, 'create'])->name('admin-pengembalian-create');
+    Route::post('/admin/pengembalian/create', [AdminPengembalian::class, 'store'])->name('admin-pengembalian-store');
+
+    Route::get('/admin/pengembalian/{pengembalian}/edit', [AdminPengembalian::class, 'edit'])->name('admin-pengembalian-edit');
+    Route::put('/admin/pengembalian/{pengembalian}', [AdminPengembalian::class, 'update'])->name('admin-pengembalian-update');
+
+    Route::delete('/admin/pengembalian/{pengembalian}', [AdminPengembalian::class, 'destroy'])->name('admin-pengembalian-destroy');
 });
 
 //Route middleware Petugas
@@ -95,18 +131,6 @@ Route::get('/home-admin', function() {
 Route::get('/users-admin', function() {
     return view('admin.users.index');
 })->name('admin-users');
-
-Route::get('/alat-admin', function() {
-    return view('admin.alatbarang.index');
-})->name('admin-alat');
-
-Route::get('/peminjaman-admin', function() {
-    return view('admin.peminjaman.index');
-})->name('admin-peminjaman');
-
-Route::get('/pengembalian-admin', function() {
-    return view('admin.pengembalian.index');
-})->name('admin-pengembalian');
 
 Route::get('/logaktivitas-admin', function() {
     return view('admin.logaktivitas');

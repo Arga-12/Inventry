@@ -109,14 +109,14 @@
                 </li>
                 
                 <li>
-                    <a href="{{ route('admin-alat') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-alat', 'admin-kategori', 'admin-kategori-create', 'admin-kategori-edit') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
+                    <a href="{{ route('admin-alat') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-alat', 'admin-alat-create', 'admin-alat-edit', 'admin-kategori', 'admin-kategori-create', 'admin-kategori-edit') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 16 16"><path fill="currentColor" d="M4.98 1a.5.5 0 0 0-.39.188L1.54 5H6a.5.5 0 0 1 .5.5a1.5 1.5 0 0 0 3 0A.5.5 0 0 1 10 5h4.46l-3.05-3.812A.5.5 0 0 0 11.02 1zm9.954 5H10.45a2.5 2.5 0 0 1-4.9 0H1.066l.32 2.562A.5.5 0 0 0 1.884 9h12.234a.5.5 0 0 0 .496-.438zM3.809.563A1.5 1.5 0 0 1 4.981 0h6.038a1.5 1.5 0 0 1 1.172.563l3.7 4.625a.5.5 0 0 1 .105.374l-.39 3.124A1.5 1.5 0 0 1 14.117 10H1.883A1.5 1.5 0 0 1 .394 8.686l-.39-3.124a.5.5 0 0 1 .106-.374zM.125 11.17A.5.5 0 0 1 .5 11H6a.5.5 0 0 1 .5.5a1.5 1.5 0 0 0 3 0a.5.5 0 0 1 .5-.5h5.5a.5.5 0 0 1 .496.562l-.39 3.124A1.5 1.5 0 0 1 14.117 16H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .121-.393zm.941.83l.32 2.562a.5.5 0 0 0 .497.438h12.234a.5.5 0 0 0 .496-.438l.32-2.562H10.45a2.5 2.5 0 0 1-4.9 0z"/></svg>
                         <span class="text-sm font-medium">Manajemen Alat & Barang</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="{{ route('admin-peminjaman') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-peminjaman') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
+                    <a href="{{ route('admin-peminjaman') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-peminjaman', 'admin-peminjaman-create', 'admin-peminjaman-edit') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M20.935 11.009V8.793a2.98 2.98 0 0 0-1.529-2.61l-5.957-3.307a2.98 2.98 0 0 0-2.898 0L4.594 6.182a2.98 2.98 0 0 0-1.529 2.611v6.414a2.98 2.98 0 0 0 1.529 2.61l5.957 3.307a2.98 2.98 0 0 0 2.898 0l2.522-1.4"/><path d="M20.33 6.996L12 12L3.67 6.996M12 21.49V12m5.466 3.996l1.408 1.407a.53.53 0 0 0 .757 0l2.835-2.836"/></g>
                         </svg>
                         <span class="text-sm font-medium">Manajemen Peminjaman</span>
@@ -124,7 +124,7 @@
                 </li>
                 
                 <li>
-                    <a href="{{ route('admin-pengembalian') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-pengembalian') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
+                    <a href="{{ route('admin-pengembalian') }}" class="group flex items-center gap-3 px-4 py-3 rounded-full border border-transparent transition-all {{ request()->routeIs('admin-pengembalian', 'admin-pengembalian-create', 'admin-pengembalian-edit') ? 'bg-[#363062] text-white shadow-md' : 'text-[#4D4C7D] hover:bg-white hover:text-[#363062] hover:shadow-sm hover:border-[#363062] opacity-80' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M20.935 11.009V8.793a2.98 2.98 0 0 0-1.529-2.61l-5.957-3.307a2.98 2.98 0 0 0-2.898 0L4.594 6.182a2.98 2.98 0 0 0-1.529 2.611v6.414a2.98 2.98 0 0 0 1.529 2.61l5.957 3.307a2.98 2.98 0 0 0 2.898 0l2.522-1.4"/><path stroke-linejoin="round" d="M20.33 6.996L12 12L3.67 6.996M12 21.49V12"/><path stroke-miterlimit="10" d="M17.409 16.47h5"/></g>
                         </svg>
                         <span class="text-sm font-medium">Manajemen Pengembalian</span>

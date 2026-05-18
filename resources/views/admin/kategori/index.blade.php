@@ -15,22 +15,33 @@
     {{-- TOPBAR --}}
     <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
 
-        {{-- SEARCH --}}
-        <div class="relative w-64">
+        <form action="{{ route('admin-kategori') }}#search-kategori" method="GET">
+            <div class="flex items-center gap-2">
+                {{-- SEARCH --}}
+                <div class="relative w-64">
 
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8s3.59 8 8 8c1.85 0 3.54-.63 4.9-1.69l5.1 5.1L21.41 20l-5.1-5.1A8 8 0 0 0 18 10M4 10c0-3.31 2.69-6 6-6s6 2.69 6 6s-2.69 6-6 6s-6-2.69-6-6"/>
-                </svg>
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8s3.59 8 8 8c1.85 0 3.54-.63 4.9-1.69l5.1 5.1L21.41 20l-5.1-5.1A8 8 0 0 0 18 10M4 10c0-3.31 2.69-6 6-6s6 2.69 6 6s-2.69 6-6 6s-6-2.69-6-6"/>
+                        </svg>
+                    </div>
+
+                    <input
+                        type="text"
+                        id="search-kategori"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Cari kategori..."
+                        class="w-full pl-10 pr-4 py-3 border border-[#363062] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#363062]"
+                    >
+
+                </div>
+
+                <button type="submit" class="w-24 h-11 flex items-center justify-center bg-[#363062] text-white rounded-full hover:bg-[#4D4C7D] transition shadow-md">
+                    Cari
+                </button>
             </div>
-
-            <input
-                type="text"
-                placeholder="Cari kategori..."
-                class="w-full pl-10 pr-4 py-3 border border-[#363062] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#363062]"
-            >
-
-        </div>
+        </form>
 
         {{-- BUTTON --}}
         <a href="{{ route('admin-kategori-create') }}" class="px-5 py-3 flex items-center gap-2 rounded-full bg-[#363062] text-white hover:bg-[#2B2750] transition-all">
@@ -72,7 +83,7 @@
                     </th>
 
                     <th class="py-4 px-4 text-left">
-                        Total Barang
+                        Total Alat / Barang ditandai
                     </th>
 
                     <th class="py-4 px-4 text-left rounded-tr-[20px]">
@@ -124,7 +135,7 @@
 
                     {{-- TOTAL --}}
                     <td class="py-4 px-4 text-gray-600">
-                        24 Barang
+                        {{ $data->alat->count() }} Item
                     </td>
 
                     {{-- AKSI --}}
