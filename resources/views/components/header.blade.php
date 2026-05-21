@@ -4,7 +4,7 @@
         {{-- foto profil --}}
         <div class="flex items-center gap-2">
             <div class="h-12 w-12 rounded-full flex items-center justify-center overflow-hidden">
-                <img src={{ asset('images/mygw.jpeg') }} class="w-full h-full object-cover">
+                <img src="{{ auth()->user()->foto_url }}" class="w-full h-full object-cover">
             </div>
             
             <div class="flex flex-col">
@@ -28,7 +28,7 @@
         </button>
 
         <div x-show="open" class="absolute right-0 mt-6 w-48 rounded-xl bg-white border border-gray-200 shadow-lg py-1">
-            <a href="{{ route('peminjam-preferensi') }}" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
+            <a href="{{ route('profil-edit') }}" class="block px-4 py-2 text-xs font-medium text-[#363062] hover:bg-gray-50">Profil Saya</a>
             <div class="border-t border-gray-100 my-1"></div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

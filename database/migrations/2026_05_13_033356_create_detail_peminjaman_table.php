@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->unique([
                 'peminjaman_id',
-                'alat_id'
+                'alat_id',
             ]);
 
             $table->timestamps();

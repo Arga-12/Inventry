@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengembalian extends Model
 {
-     // nama tabel
+    // nama tabel
     protected $table = 'pengembalian';
 
     // mass assignment
@@ -18,6 +18,12 @@ class Pengembalian extends Model
         'tanggal_pengembalian',
         'tanggal_verifikasi',
     ];
+
+    // binding route untuk patokan edit dan update
+    public function getRouteKeyName()
+    {
+        return 'kode_pengembalian';
+    }
 
     /**
      * relasi ke peminjaman
@@ -43,13 +49,13 @@ class Pengembalian extends Model
         return $this->hasMany(DetailPengembalian::class, 'pengembalian_id', 'id');
     }
 
-    //untuk parsing dan mempermudah perhitungan datetime
+    // untuk parsing dan mempermudah perhitungan datetime
     protected $casts = [
         'tanggal_pengembalian' => 'datetime',
         'tanggal_verifikasi' => 'datetime',
     ];
 
-    //buat badge status pengembalian
+    // buat badge status pengembalian
     public function getStatusBadgeAttribute()
     {
         return match ($this->status) {

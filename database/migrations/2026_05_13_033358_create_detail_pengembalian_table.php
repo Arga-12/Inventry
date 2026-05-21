@@ -33,7 +33,7 @@ return new class extends Migration
 
             $table->unique([
                 'pengembalian_id',
-                'detail_peminjaman_id'
+                'detail_peminjaman_id',
             ]);
 
             $table->timestamps();

@@ -30,7 +30,7 @@ return new class extends Migration
                 'jatuh_tempo',
                 'terlambat',
                 'selesai', // <- berubah jadi selesai kalau di tabel pengembalian udah di verif
-                'ditolak'
+                'ditolak',
             ])->default('menunggu');
 
             $table->integer('durasi')->nullable(); // <- dalam menit

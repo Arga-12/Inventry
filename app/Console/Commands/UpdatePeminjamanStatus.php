@@ -19,19 +19,17 @@ class UpdatePeminjamanStatus extends Command
     {
         $now = Carbon::now();
 
-        // jadi jatuh tempo
+        // jadi jatuh tempo (hanya jika ada deadline)
         Peminjaman::where('status', 'dipinjam')
+            ->whereNotNull('deadline') // Tambahkan ini biar aman
             ->where('deadline', '<=', $now)
-            ->update([
-                'status' => 'jatuh_tempo'
-            ]);
+            ->update(['status' => 'jatuh_tempo']);
 
-        // jadi terlambat setelah 10 menit
+        // jadi terlambat (setelah 10 menit dari deadline)
         Peminjaman::where('status', 'jatuh_tempo')
+            ->whereNotNull('deadline') // Tambahkan ini juga
             ->where('deadline', '<=', $now->copy()->subMinutes(10))
-            ->update([
-                'status' => 'terlambat'
-            ]);
+            ->update(['status' => 'terlambat']);
 
         $this->info('Status peminjaman berhasil diperbarui.');
     }

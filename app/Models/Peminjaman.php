@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
@@ -25,6 +26,68 @@ class Peminjaman extends Model
     public function getRouteKeyName()
     {
         return 'kode_peminjaman';
+    }
+
+    /**
+     * Booted trait untuk auto-sync saat model di-load
+     */
+    protected static function booted()
+    {
+        static::retrieved(function ($peminjaman) {
+            $peminjaman->syncStatusIfNeeded();
+        });
+    }
+
+    /**
+     * Sync status berdasarkan deadline (real-time)
+     */
+    public function syncStatusIfNeeded()
+    {
+        // Hanya proses yang statusnya 'dipinjam' atau 'jatuh_tempo'
+        if (! in_array($this->status, ['dipinjam', 'jatuh_tempo'])) {
+            return $this;
+        }
+
+        // Hanya proses yang punya deadline
+        if (! $this->deadline) {
+            return $this;
+        }
+
+        $now = Carbon::now();
+        $originalStatus = $this->getOriginal('status');
+        $newStatus = null;
+
+        // Cek kondisi: dipinjam -> jatuh_tempo
+        if ($originalStatus === 'dipinjam' && $now->greaterThan($this->deadline)) {
+            $newStatus = 'jatuh_tempo';
+        }
+
+        // Cek kondisi: jatuh_tempo -> terlambat (lewat 10 menit)
+        if ($originalStatus === 'jatuh_tempo' && $now->greaterThan($this->deadline->copy()->addMinutes(10))) {
+            $newStatus = 'terlambat';
+        }
+
+        // Update jika ada perubahan
+        if ($newStatus) {
+            $this->update(['status' => $newStatus]);
+            $this->refresh();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sync semua peminjaman aktif (bisa dipanggil dari controller)
+     */
+    public static function syncAllActivePeminjaman()
+    {
+        return self::whereIn('status', ['dipinjam', 'jatuh_tempo'])
+            ->whereNotNull('deadline')
+            ->chunk(100, function ($peminjaman) {
+                foreach ($peminjaman as $p) {
+                    $p->syncStatusIfNeeded();
+                }
+            });
     }
 
     /**
@@ -66,7 +129,7 @@ class Peminjaman extends Model
         'tanggal_disetujui' => 'datetime',
     ];
 
-    //buat badge status peminjaman
+    // buat badge status peminjaman
     public function getStatusBadgeAttribute()
     {
         return match ($this->status) {
@@ -80,6 +143,7 @@ class Peminjaman extends Model
             default => 'bg-gray-100 text-gray-600 border-gray-200',
         };
     }
+
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
@@ -92,5 +156,42 @@ class Peminjaman extends Model
 
             default => 'Unknown',
         };
+    }
+
+    /**
+     * Get real-time status (badge + label) untuk tampilan card
+     */
+    public function getCardStatusAttribute()
+    {
+        // Jika tidak ada deadline atau status bukan dipinjam/jatuh_tempo
+        if (is_null($this->deadline) || ! in_array($this->status, ['dipinjam', 'jatuh_tempo'])) {
+            return [
+                'label' => $this->status_label,
+                'badge' => $this->status_badge,
+            ];
+        }
+
+        $deadline = Carbon::parse($this->deadline);
+        $lateTime = $deadline->copy()->addMinutes(10);
+        $now = Carbon::now();
+
+        if ($now->greaterThanOrEqualTo($lateTime)) {
+            return [
+                'label' => 'Terlambat',
+                'badge' => 'bg-red-100 text-red-700 border-red-200',
+            ];
+        }
+
+        if ($now->greaterThanOrEqualTo($deadline)) {
+            return [
+                'label' => 'Jatuh Tempo',
+                'badge' => 'bg-orange-100 text-orange-700 border-orange-200',
+            ];
+        }
+
+        return [
+            'label' => $this->status_label,
+            'badge' => $this->status_badge,
+        ];
     }
 }

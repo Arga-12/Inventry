@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailPeminjaman extends Model
 {
-     // nama tabel
+    // nama tabel
     protected $table = 'detail_peminjaman';
 
     // mass assignment

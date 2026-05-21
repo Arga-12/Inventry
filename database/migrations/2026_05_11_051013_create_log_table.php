@@ -14,15 +14,22 @@ return new class extends Migration
         Schema::create('log', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('user')
+                ->nullOnDelete();
 
+            $table->string('role')->nullable();
+
+            $table->string('modul');
             $table->string('aksi');
-            $table->string('target')->nullable();
 
+            $table->string('target')->nullable();
             $table->text('keterangan')->nullable();
 
-            $table->string('status')->default('success');
-            
+            $table->enum('status', ['success', 'warning', 'error'])
+                ->default('success');
+
             $table->timestamps();
         });
     }

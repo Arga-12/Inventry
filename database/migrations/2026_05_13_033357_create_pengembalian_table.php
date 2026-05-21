@@ -27,12 +27,12 @@ return new class extends Migration
 
             $table->enum('status', [
                 'menunggu_verifikasi',
-                'selesai'
+                'selesai',
             ])->default('menunggu_verifikasi');
 
             $table->timestamp('tanggal_pengembalian')->nullable();
             $table->timestamp('tanggal_verifikasi')->nullable();
-            
+
             $table->timestamps();
         });
     }

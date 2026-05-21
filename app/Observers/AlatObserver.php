@@ -27,9 +27,9 @@ class AlatObserver
      */
     public function deleted(Alat $alat): void
     {
-        //tambahkan timestamp agar unik kembali
+        // tambahkan timestamp agar unik kembali
         $alat->update([
-            'kode_alat' => $alat->kode_alat . '-' . time(),
+            'kode_alat' => $alat->kode_alat.'-'.time(),
         ]);
     }
 
