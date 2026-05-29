@@ -21,7 +21,7 @@ class KategoriController extends Controller
 
         // eloquent untuk searchnya dengan where melalui nama_kategori
         $kategori = Kategori::when($search, function ($query, $search) {
-            return $query->where('nama_kategori', 'like', '%'.$search.'%');
+            return $query->where('nama_kategori', 'like', '%' . $search . '%');
         })->get();
 
         // return view index
@@ -49,10 +49,10 @@ class KategoriController extends Controller
         ]);
 
         // bikin unique id sendiri
-        $last = Kategori::count() + 1;
-        // ::count() as menjumlahkan total baris yang ada di tabel kategori
+        $last = Kategori::max('id') + 1;
+        // ::max('id') untuk menghindari duplikasi saat ada data yang dihapus
 
-        $kode = 'KTG-'.str_pad($last, 3, '0', STR_PAD_LEFT);
+        $kode = 'KTG-' . str_pad($last, 3, '0', STR_PAD_LEFT);
         // strpad() (string yang akan dimasukkan, panjang string, padding kosong diisi apa?,rata dari kiri atau kanan)
 
         // logic menambahkan data
@@ -68,7 +68,7 @@ class KategoriController extends Controller
             'modul' => 'kategori',
             'aksi' => 'create',
             'target' => $kategori->nama_kategori,
-            'keterangan' => 'Admin menambahkan kategori baru dengan kode '.$kategori->kode_kategori,
+            'keterangan' => 'Admin menambahkan kategori baru dengan kode ' . $kategori->kode_kategori,
             'status' => 'success',
         ]);
 

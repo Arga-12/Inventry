@@ -75,7 +75,7 @@ class PengembalianController extends Controller
                 });
             })
             ->latest()
-            ->get();
+            ->paginate(4);
 
         return view('peminjam.pengembalian', compact('menunggu', 'selesai', 'durasiList'));
     }

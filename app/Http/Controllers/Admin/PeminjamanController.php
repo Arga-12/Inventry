@@ -59,14 +59,14 @@ class PeminjamanController extends Controller
             ->when($searchMenunggu, function ($q) use ($searchMenunggu) {
                 $q->where(function ($query) use ($searchMenunggu) {
                     $query->where('kode_peminjaman', 'like', "%{$searchMenunggu}%")
-                        ->orWhereHas('peminjam', fn ($q2) => $q2->where('nama_lengkap', 'like', "%{$searchMenunggu}%"));
+                        ->orWhereHas('peminjam', fn($q2) => $q2->where('nama_lengkap', 'like', "%{$searchMenunggu}%"));
                 });
             })
             ->when($durasiMenunggu, function ($q) use ($durasiMenunggu) {
-                $q->whereHas('detailPeminjaman.alat', fn ($q2) => $q2->where('durasi', $durasiMenunggu));
+                $q->whereHas('detailPeminjaman.alat', fn($q2) => $q2->where('durasi', $durasiMenunggu));
             })
             ->latest()
-            ->get();
+            ->paginate(3, ['*'], 'page_menunggu');
 
         // query search untuk section peminjaman aktif
         $dipinjam = Peminjaman::with('peminjam', 'petugas', 'detailPeminjaman.alat.kategori')
@@ -74,15 +74,15 @@ class PeminjamanController extends Controller
             ->when($searchAktif, function ($q) use ($searchAktif) {
                 $q->where(function ($query) use ($searchAktif) {
                     $query->where('kode_peminjaman', 'like', "%{$searchAktif}%")
-                        ->orWhereHas('peminjam', fn ($q2) => $q2->where('nama_lengkap', 'like', "%{$searchAktif}%"));
+                        ->orWhereHas('peminjam', fn($q2) => $q2->where('nama_lengkap', 'like', "%{$searchAktif}%"));
                 });
             })
             ->when($durasiAktif, function ($q) use ($durasiAktif) {
-                $q->whereHas('detailPeminjaman.alat', fn ($q2) => $q2->where('durasi', $durasiAktif));
+                $q->whereHas('detailPeminjaman.alat', fn($q2) => $q2->where('durasi', $durasiAktif));
             })
-            ->when($statusAktif, fn ($q) => $q->where('status', $statusAktif))
+            ->when($statusAktif, fn($q) => $q->where('status', $statusAktif))
             ->latest()
-            ->get();
+            ->paginate(3, ['*'], 'page_aktif');
 
         // query untuk riwayat dengan filter
         $riwayat = Peminjaman::with('peminjam', 'petugas', 'detailPeminjaman.alat.kategori')
@@ -90,18 +90,22 @@ class PeminjamanController extends Controller
             ->when($searchRiwayat, function ($q) use ($searchRiwayat) {
                 $q->where(function ($query) use ($searchRiwayat) {
                     $query->where('kode_peminjaman', 'like', "%{$searchRiwayat}%")
-                        ->orWhereHas('peminjam', fn ($q2) => $q2->where('nama_lengkap', 'like', "%{$searchRiwayat}%"));
+                        ->orWhereHas('peminjam', fn($q2) => $q2->where('nama_lengkap', 'like', "%{$searchRiwayat}%"));
                 });
             })
             ->when($durasiRiwayat, function ($q) use ($durasiRiwayat) {
-                $q->whereHas('detailPeminjaman.alat', fn ($q2) => $q2->where('durasi', $durasiRiwayat));
+                $q->whereHas('detailPeminjaman.alat', fn($q2) => $q2->where('durasi', $durasiRiwayat));
             })
-            ->when($statusRiwayat, fn ($q) => $q->where('status', $statusRiwayat))
+            ->when($statusRiwayat, fn($q) => $q->where('status', $statusRiwayat))
             ->latest()
-            ->paginate(10);
+            ->paginate(4, ['*'], 'page_riwayat');
 
         return view('admin.peminjaman.index', compact(
-            'dipinjam', 'menunggu', 'riwayat', 'stats', 'durasiList'
+            'dipinjam',
+            'menunggu',
+            'riwayat',
+            'stats',
+            'durasiList'
         ));
     }
 
@@ -158,13 +162,15 @@ class PeminjamanController extends Controller
         }
 
         // begitu juga dengan status dipnjkam yak
-        if (in_array($validated['status'], [
-            'dipinjam',
-            'selesai',
-        ])) {
+        if (
+            in_array($validated['status'], [
+                'dipinjam',
+                'selesai',
+            ])
+        ) {
             $petugas = Pengguna::find($validated['petugas_id']);
 
-            if (! $petugas || $petugas->role !== 'petugas') {
+            if (!$petugas || $petugas->role !== 'petugas') {
 
                 return back()->withErrors([
                     'petugas_id' => 'User bukan petugas.',
@@ -174,7 +180,7 @@ class PeminjamanController extends Controller
 
         // validasi tambahan biar cuma peminjam aja yang boleh minjam
         $peminjam = Pengguna::find($validated['peminjam_id']);
-        if (! $peminjam || $peminjam->role !== 'peminjam') {
+        if (!$peminjam || $peminjam->role !== 'peminjam') {
             return back()
                 ->withInput()
                 ->withErrors([
@@ -239,8 +245,8 @@ class PeminjamanController extends Controller
                     'dipinjam',
                     'selesai',
                 ])
-                ? $tanggal_disetujui // <--- Ganti di bagian ini saja
-                : null,
+                    ? $tanggal_disetujui // <--- Ganti di bagian ini saja
+                    : null,
             ]);
 
             // loop alat
@@ -265,7 +271,7 @@ class PeminjamanController extends Controller
                     return back()
                         ->withInput()
                         ->withErrors([
-                            'stok' => 'Stok alat "'.$alat->nama_alat.'" tidak mencukupi.',
+                            'stok' => 'Stok alat "' . $alat->nama_alat . '" tidak mencukupi.',
                         ]);
                 }
 
@@ -400,7 +406,7 @@ class PeminjamanController extends Controller
         if (isset($validated['petugas_id'])) {
             $petugas = Pengguna::find($validated['petugas_id']);
 
-            if (! $petugas || $petugas->role !== 'petugas') {
+            if (!$petugas || $petugas->role !== 'petugas') {
                 return back()->withErrors([
                     'petugas_id' => 'User bukan petugas.',
                 ]);
@@ -470,7 +476,7 @@ class PeminjamanController extends Controller
             foreach ($peminjaman->detailPeminjaman as $detailLama) {
                 $alatLama = Alat::withTrashed()->lockForUpdate()->find($detailLama->alat_id);
 
-                if (! $alatLama) {
+                if (!$alatLama) {
                     throw new \Exception('Alat lama tidak ditemukan.');
                 }
 
@@ -509,8 +515,8 @@ class PeminjamanController extends Controller
                     'selesai',
                     'ditolak',
                 ])
-                     ? $tanggal_disetujui // <--- Ubah bagian ini saja
-                     : null,
+                    ? $tanggal_disetujui // <--- Ubah bagian ini saja
+                    : null,
             ]);
 
             $peminjaman->detailPeminjaman()->delete();
@@ -538,7 +544,7 @@ class PeminjamanController extends Controller
                     return back()
                         ->withInput()
                         ->withErrors([
-                            'stok' => 'Stok alat "'.$alat->nama_alat.'" tidak mencukupi.',
+                            'stok' => 'Stok alat "' . $alat->nama_alat . '" tidak mencukupi.',
                         ]);
                 }
 
@@ -556,7 +562,7 @@ class PeminjamanController extends Controller
                         ->where('stok', '>=', $item['jumlah'])
                         ->decrement('stok', $item['jumlah']);
 
-                    if (! $updated) {
+                    if (!$updated) {
 
                         DB::rollBack();
 
@@ -634,11 +640,13 @@ class PeminjamanController extends Controller
             }
 
             // kembalikan stok HANYA jika peminjaman sedang aktif
-            if (in_array($peminjaman->status, [
-                'dipinjam',
-                'jatuh_tempo',
-                'terlambat',
-            ])) {
+            if (
+                in_array($peminjaman->status, [
+                    'dipinjam',
+                    'jatuh_tempo',
+                    'terlambat',
+                ])
+            ) {
                 foreach ($peminjaman->detailPeminjaman as $detail) {
 
                     Alat::where('id', $detail->alat_id)
@@ -697,7 +705,7 @@ class PeminjamanController extends Controller
         $prefix = "INV-PJ-{$tahun}{$bulan}-";
 
         // cari kode terakhir bulan ini
-        $lastPeminjaman = Peminjaman::where('kode_peminjaman', 'like', $prefix.'%')
+        $lastPeminjaman = Peminjaman::where('kode_peminjaman', 'like', $prefix . '%')
             ->latest('id')
             ->first();
 
@@ -718,6 +726,6 @@ class PeminjamanController extends Controller
         $nomor = str_pad($nomor, 3, '0', STR_PAD_LEFT);
 
         // hasil akhir
-        return $prefix.$nomor;
+        return $prefix . $nomor;
     }
 }

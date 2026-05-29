@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Alat;
 use App\Models\Kategori;
+use App\Models\Log;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Pengguna;
@@ -86,6 +87,12 @@ class DashboardController extends Controller
             'list' => $usersOnline->take(9),
         ];
 
-        return view('admin.dashboard', compact('chart', 'stok', 'userStats'));
+        // latest logs
+        $latestLogs = Log::with('user')
+            ->latest()
+            ->limit(8)
+            ->get();
+
+        return view('admin.dashboard', compact('chart', 'stok', 'userStats', 'latestLogs'));
     }
 }

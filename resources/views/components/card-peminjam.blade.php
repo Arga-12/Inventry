@@ -7,26 +7,25 @@
 <div class="bg-white border border-gray-300 rounded-[20px] p-4 shadow-lg">
     
     {{-- HEADER --}}
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <h3 class="text-xl font-semibold text-[#363062]">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div class="flex items-center gap-3 flex-wrap">
+            <h3 class="text-xl font-semibold text-[#363062] leading-none">
                 {{ $peminjaman->kode_peminjaman }}
             </h3>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $status['badge'] }}">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold shrink-0 {{ $status['badge'] }}">
                 {{ $status['label'] }}
             </span>
         </div>
 
         {{-- Informasi Tanggal --}}
-        <div class="flex flex-col text-right text-xs">
-            <p class="whitespace-nowrap">
+        <div class="flex flex-col sm:text-right text-xs text-gray-500">
+            <p>
                 Waktu Pengajuan: 
                 <span class="text-[#363062] font-semibold">
                     {{ \Carbon\Carbon::parse($peminjaman->tanggal_pengajuan)->format('H:i | d/m/Y') }}
                 </span>
             </p>
-            
-            <p class="whitespace-nowrap mt-1">
+            <p class="mt-1">
                 Waktu Disetujui: 
                 <span class="text-[#363062] font-semibold">
                     {{ $peminjaman->tanggal_disetujui ? \Carbon\Carbon::parse($peminjaman->tanggal_disetujui)->format('H:i | d/m/Y') : '-' }}
@@ -52,12 +51,12 @@
             </div>
         </div>
         {{-- Daftar Alat --}}
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 max-h-44 overflow-y-auto pr-1">
             @foreach($peminjaman->detailPeminjaman as $detail)
-            <div class="flex items-center justify-between gap-4">
+            <div class="flex items-start justify-between gap-4">
                 
                 {{-- LEFT ITEM --}}
-                <div class="flex items-center gap-3 flex-1">
+                <div class="flex items-center gap-3 flex-1 min-w-0">
                     <div class="w-12 h-12 rounded-xl border flex items-center justify-center overflow-hidden bg-gray-50 flex-shrink-0">
                         <img 
                             src="{{ $detail->alat->gambar ? asset('storage/' . $detail->alat->gambar) : asset('images/default-alat.jpg') }}" 
@@ -66,14 +65,14 @@
                         >
                     </div>
 
-                    <div class="flex-1">
-                        <p class="text-sm font-medium">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">
                             {{ $detail->alat->nama_alat }} 
                             <span class="text-xs font-medium text-gray-500">×{{ $detail->jumlah }}</span>
                         </p>
                         <div class="flex items-center gap-1 mt-0.5">
-                            <div class="h-2 w-2 rounded-full" style="background: {{ $detail->alat->kategori->warna ?? '#363062' }}"></div>
-                            <p class="text-xs text-gray-500">{{ $detail->alat->kategori->nama_kategori ?? 'Tanpa Kategori' }}</p>
+                            <div class="h-2 w-2 rounded-full flex-shrink-0" style="background: {{ $detail->alat->kategori->warna ?? '#363062' }}"></div>
+                            <p class="text-xs text-gray-500 truncate">{{ $detail->alat->kategori->nama_kategori ?? 'Tanpa Kategori' }}</p>
                         </div>
                     </div>
                 </div>

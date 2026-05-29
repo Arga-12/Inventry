@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4">
+<div class="mx-auto pt-20 pb-8 lg:py-8 px-4">
     <div class="w-full flex flex-col gap-10">
 
         <div class="flex flex-col">
-            <h1 class="text-4xl font-bold">Pengaturan & Preferensi</h1>
+            <h1 class="text-2xl sm:text-4xl font-bold">Pengaturan & Preferensi</h1>
             <p class="text-gray-500">Atur pengaturan profil Anda</p>
         </div>
 
@@ -16,7 +16,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
                 <div class="flex flex-col gap-1">
-                    <h2 class="text-3xl font-bold">Detail Profil</h2>
+                    <h2 class="text-xl sm:text-3xl font-bold">Detail Profil</h2>
                     <p class="text-gray-500 text-sm">Keterangan mengenai profil Anda</p>
                 </div>
 
@@ -88,7 +88,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
                 <div class="flex flex-col gap-1">
-                    <h2 class="text-3xl font-bold">Keamanan Akun</h2>
+                    <h2 class="text-xl sm:text-3xl font-bold">Keamanan Akun</h2>
                     <p class="text-gray-500 text-sm">Ubah password Anda untuk lebih mengamankan akun</p>
                 </div>
 

@@ -1,7 +1,7 @@
 @props(['alat'])
 
 <div class="w-full h-[400px]">
-  <div class="relative w-full h-full bg-white rounded-[20px] p-4 overflow-hidden shadow-lg">
+  <div class="relative w-full h-full bg-white rounded-[20px] overflow-hidden shadow-lg">
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ $alat->gambar ? asset('storage/' . $alat->gambar) : asset('images/default-alat.jpg') }}')">
       <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20"></div>
     </div>

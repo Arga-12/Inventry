@@ -55,7 +55,7 @@ class PenggunaController extends Controller
                         ->orWhere('email', 'like', "%{$search}%");
                 });
             })
-            ->when($roleFilter, fn ($query, $role) => $query->where('role', $role))
+            ->when($roleFilter, fn($query, $role) => $query->where('role', $role))
             ->when($statusFilter, function ($query, $status) {
                 if ($status === 'aktif') {
                     $query->where('last_activity', '>=', now()->subMinutes(5));
@@ -120,7 +120,7 @@ class PenggunaController extends Controller
             // handle upload foto profil
             if ($request->hasFile('foto_profil')) {
                 $file = $request->file('foto_profil');
-                $filename = time().'_'.$file->getClientOriginalName();
+                $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('foto_profil', $filename, 'public');
                 $data['foto_profil'] = $path;
             }
@@ -135,7 +135,7 @@ class PenggunaController extends Controller
                 'modul' => 'pengguna',
                 'aksi' => 'create',
                 'target' => $request->username,
-                'keterangan' => 'Menambahkan user baru dengan role "'.$request->role.'"',
+                'keterangan' => 'Menambahkan user baru dengan role "' . $request->role . '"',
                 'status' => 'success',
             ]);
 
@@ -148,7 +148,7 @@ class PenggunaController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -179,11 +179,11 @@ class PenggunaController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'unique:user,username,'.($pengguna->id ?? ''),
+                'unique:user,username,' . ($pengguna->id ?? ''),
                 'regex:/^[a-zA-Z][a-zA-Z0-9_]*$/',
             ],
             'nama_lengkap' => 'required|string|max:255',
-            'email' => 'required|email|unique:user,email,'.$pengguna->id,
+            'email' => 'required|email|unique:user,email,' . $pengguna->id,
             'role' => 'required|in:admin,petugas,peminjam',
             'password' => 'nullable|string|min:6|confirmed',
             'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -221,12 +221,12 @@ class PenggunaController extends Controller
             // handle upload foto profil baru
             if ($request->hasFile('foto_profil')) {
                 // destroy file foto lama jika ada
-                if ($pengguna->foto_profil && file_exists(storage_path('app/public/'.$pengguna->foto_profil))) {
-                    unlink(storage_path('app/public/'.$pengguna->foto_profil));
+                if ($pengguna->foto_profil && file_exists(storage_path('app/public/' . $pengguna->foto_profil))) {
+                    unlink(storage_path('app/public/' . $pengguna->foto_profil));
                 }
 
                 $file = $request->file('foto_profil');
-                $filename = time().'_'.$file->getClientOriginalName();
+                $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('foto_profil', $filename, 'public');
                 $data['foto_profil'] = $path;
             }
@@ -241,7 +241,7 @@ class PenggunaController extends Controller
                 'modul' => 'pengguna',
                 'aksi' => 'update',
                 'target' => $pengguna->username,
-                'keterangan' => 'Mengupdate data user "'.$pengguna->username.'"',
+                'keterangan' => 'Mengupdate data user "' . $pengguna->username . '"',
                 'status' => 'success',
             ]);
 
@@ -254,7 +254,7 @@ class PenggunaController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -267,10 +267,11 @@ class PenggunaController extends Controller
 
         try {
             // hapus file foto profil jika ada
-            if ($pengguna->foto_profil && file_exists(storage_path('app/public/'.$pengguna->foto_profil))) {
-                unlink(storage_path('app/public/'.$pengguna->foto_profil));
+            if ($pengguna->foto_profil && file_exists(storage_path('app/public/' . $pengguna->foto_profil))) {
+                unlink(storage_path('app/public/' . $pengguna->foto_profil));
             }
 
+            $username = $pengguna->username;
             // hapus user
             $pengguna->delete();
 
@@ -282,7 +283,7 @@ class PenggunaController extends Controller
                 'modul' => 'pengguna',
                 'aksi' => 'delete',
                 'target' => $username,
-                'keterangan' => 'Menghapus user "'.$username.'"',
+                'keterangan' => 'Menghapus user "' . $username . '"',
                 'status' => 'warning',
             ]);
 
@@ -294,7 +295,7 @@ class PenggunaController extends Controller
             DB::rollBack();
 
             return back()
-                ->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 }

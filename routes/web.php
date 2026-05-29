@@ -159,7 +159,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/home-admin', function () {
     return view('admin.dashboard');
-})->name('admin-home');
+})->name('test-admin-home');
 
 Route::get('/logaktivitas-admin', function () {
     return view('admin.logaktivitas');

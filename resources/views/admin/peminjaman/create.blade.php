@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4">
+<div class="mx-auto pt-20 pb-8 lg:py-8 px-4">
 	<div class="w-full flex flex-col gap-10">
 		
 		{{-- HEADER --}}
 		<div class="flex flex-col gap-1">
-			<h1 class="text-4xl font-bold">
+			<h1 class="text-2xl sm:text-4xl font-bold">
 				Tambahkan data peminjaman
 			</h1>
 			
-			<p class="text-gray-500">
+			<p class="text-xs sm:text-sm text-gray-500">
 				Lengkapi informasi peminjaman alat dan barang dengan benar.
 			</p>
 		</div>
@@ -22,15 +22,15 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                 <div>
-                    <h2 class="text-3xl font-bold">Data Peminjam</h2>
-                    <p class="text-gray-500 text-sm">Pilih siapa yang meminjam barang.</p>
+                    <h2 class="text-xl sm:text-3xl font-bold">Data Peminjam</h2>
+                    <p class="text-gray-500 text-xs sm:text-sm">Pilih siapa yang meminjam barang.</p>
                 </div>
 
                 <div>
-                    <label class="text-sm font-medium">Peminjam</label>
+                    <label class="text-xs sm:text-sm font-bold text-gray-700">Peminjam</label>
 
                     <select name="peminjam_id"
-                        class="w-full border border-gray-500 rounded-xl px-4 py-3 mb-3 bg-white">
+                        class="text-xs sm:text-sm w-full border border-gray-500 rounded-xl px-4 py-3 mb-3 bg-white">
                         
                         @foreach($peminjam as $user)
                         <option value="{{ $user->id }}">
@@ -46,7 +46,7 @@
             {{-- Detail tanggal dan status --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                 <div>
-                    <h2 class="text-3xl font-bold">Informasi Peminjaman</h2>
+                    <h2 class="text-xl sm:text-3xl font-bold">Informasi Peminjaman</h2>
                 </div>
 
                 <div class="flex flex-col gap-4">
@@ -59,15 +59,13 @@
                             {{-- TANGGAL PENGAJUAN --}}
                             <div class="flex flex-col gap-2">
 
-                                <label class="text-sm font-medium">
-                                    Tanggal Pengajuan
-                                </label>
+                                <label class="text-xs sm:text-sm font-medium">Tanggal Pengajuan</label>
 
                                 <input
                                     type="datetime-local"
                                     name="tanggal_pengajuan"
                                     value="{{ old('tanggal_pengajuan') }}"
-                                    class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none"
+                                    class="w-full text-xs sm:text-sm border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none"
                                 >
 
                             </div>
@@ -75,14 +73,12 @@
                             {{-- STATUS --}}
                             <div class="flex flex-col gap-2">
 
-                                <label class="text-sm font-medium">
-                                    Status
-                                </label>
+                                <label class="text-xs sm:text-sm font-medium">Status</label>
 
                                <select
                                     name="status"
                                     x-model="status"
-                                    class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none"
+                                    class="w-full text-xs sm:text-sm border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none"
                                 >
                                     <option value="menunggu">Menunggu</option>
                                     <option value="dipinjam">Dipinjam</option>
@@ -103,9 +99,7 @@
                             {{-- TANGGAL DISETUJUI --}}
                             <div class="flex flex-col gap-2">
 
-                                <label class="text-sm font-medium">
-                                    Tanggal Disetujui
-                                </label>
+                                <label class="text-xs sm:text-sm font-medium">Tanggal Disetujui</label>
 
                                 <input
                                     type="datetime-local"
@@ -120,9 +114,7 @@
                             {{-- PETUGAS --}}
                             <div class="flex flex-col gap-2">
 
-                                <label class="text-sm font-medium">
-                                    Petugas
-                                </label>
+                                <label class="text-xs sm:text-sm font-medium">Petugas</label>
 
                                 <select
                                     name="petugas_id"
@@ -153,8 +145,8 @@
             {{-- Alat dan barang peminjaman --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                 <div>
-                    <h2 class="text-3xl font-bold">Alat yang Dipinjam</h2>
-                    <p class="text-gray-500 text-sm">
+                    <h2 class="text-xl sm:text-3xl font-bold">Alat yang Dipinjam</h2>
+                    <p class="text-gray-500 text-xs sm:text-sm">
                         Pilih alat dan jumlahnya.
                     </p>
                 </div>
@@ -162,14 +154,12 @@
                 <div x-data="alatForm({{ Js::from(old('items')) }}, {{ Js::from($alat) }})" class="flex flex-col gap-4">
                 
                     <div class="flex flex-col gap-2">
-                        <label class="text-sm font-medium">
-                            Durasi Peminjaman
-                        </label>
+                        <label class="text-xs sm:text-sm font-medium">Durasi Peminjaman</label>
 
                         <select
                             x-model="durasiDipilih"
                             name="durasi"
-                            class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white"
+                            class="w-full text-xs sm:text-sm border border-gray-400 rounded-xl px-4 py-3 bg-white"
                         >
 
                             <option value="">
@@ -193,7 +183,7 @@
                             <select 
                                 :name="'items['+index+'][alat_id]'"
                                 required
-                                class="flex-1 border rounded-xl px-3 py-2"
+                                class="flex-1 text-xs sm:text-sm border rounded-xl px-3 py-2"
                             >
                                 <option value="">-- Pilih durasi --</option>
                                 <template x-for="alat in filteredAlat" :key="alat.id">
@@ -212,7 +202,7 @@
                                 required
                                 :name="'items['+index+'][jumlah]'"
                                 placeholder="Qty"
-                                class="w-16 border rounded-xl px-3 py-2"
+                                class="w-16 text-xs sm:text-sm border rounded-xl px-3 py-2"
                             >
 
                             {{-- REMOVE BUTTON --}}
@@ -254,14 +244,14 @@
                 <a 
                     href="{{ route('admin-peminjaman') }}"
                     type="button"
-                    class="w-full text-center border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-100 transition-all"
+                    class="w-full text-xs sm:text-sm font-bold text-center border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-100 transition-all"
                     >
                     Batal
                 </a>
                 
                 <button 
                     type="submit"
-                    class="w-full border border-transparent bg-[#363062] rounded-full px-6 py-3 text-white hover:bg-transparent hover:border-[#363062] hover:text-[#363062] transition-all"
+                    class="w-full text-xs sm:text-sm font-bold border border-transparent bg-[#363062] rounded-full px-6 py-3 text-white hover:bg-transparent hover:border-[#363062] hover:text-[#363062] transition-all"
                     >
                     Simpan
             </button>

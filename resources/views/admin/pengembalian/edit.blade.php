@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4">
+<div class="mx-auto pt-20 pb-8 lg:py-8 px-4">
     <div class="w-full flex flex-col gap-10">
 
         {{-- HEADER --}}
         <div class="flex flex-col gap-1">
-            <h1 class="text-4xl font-bold">
+            <h1 class="text-2xl sm:text-4xl font-bold">
                 Tambahkan data pengembalian
             </h1>
 
-            <p class="text-gray-500">
+            <p class="text-xs sm:text-sm text-gray-500">
                 Lengkapi informasi pengembalian alat dan barang dengan benar.
             </p>
         </div>
@@ -29,21 +29,21 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                     <div>
-                        <h2 class="text-3xl font-bold">Data Peminjaman</h2>
-                        <p class="text-gray-500 text-sm">
+                        <h2 class="text-xl sm:text-3xl font-bold">Data Peminjaman</h2>
+                        <p class="text-xs sm:text-sm text-gray-500">
                             Pilih kode peminjaman yang ingin dikembalikan.
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-4">
 
-                        <label class="text-sm font-medium">Kode Peminjaman</label>
+                        <label class="text-xs sm:text-sm font-bold text-gray-700">Kode Peminjaman</label>
 
                         <select
                             name="peminjaman_id"
                             x-model="selectedPeminjaman"
                             x-init="selectedPeminjaman = '{{ old('peminjaman_id', $pengembalian->peminjaman_id) }}'"
-                            class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white"
+                            class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow">
                         >
                             <option value="">Pilih peminjaman</option>
 
@@ -66,9 +66,8 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                     <div>
-                        <h2 class="text-3xl font-bold">Informasi Pengembalian</h2>
-                        
-                        <p class="text-gray-500 text-sm">
+                        <h2 class="text-xl sm:text-3xl font-bold">Informasi Pengembalian</h2>
+                        <p class="text-xs sm:text-sm text-gray-500">
                             Atur status dan waktu pengembalian barang.
                         </p>
                     </div>
@@ -79,13 +78,13 @@
 
                             {{-- STATUS --}}
                             <div>
-                                <label class="text-sm font-medium">Status</label>
+                                <label class="text-xs sm:text-sm font-bold text-gray-700">Status</label>
 
                                 <select
                                     name="status"
                                     x-model="status"
                                     x-init="status = '{{ old('status', $pengembalian->status) }}'"
-                                    class="w-full border border-gray-400 rounded-xl px-4 py-3"
+                                    class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow">
                                 >
                                     <option value="menunggu_verifikasi"
                                         @selected(old('status', $pengembalian->status) == 'menunggu_verifikasi')
@@ -103,13 +102,13 @@
 
                             {{-- TANGGAL --}}
                             <div>
-                                <label class="text-sm font-medium">Tanggal Pengembalian</label>
+                                <label class="text-xs sm:text-sm font-bold text-gray-700">Tanggal Pengembalian</label>
 
                                 <input
                                     type="datetime-local"
                                     name="tanggal_pengembalian"
                                     value="{{ old('tanggal_pengembalian', \Carbon\Carbon::parse($pengembalian->tanggal_pengembalian)->format('Y-m-d\TH:i')) }}"
-                                    class="w-full border border-gray-400 rounded-xl px-4 py-3"
+                                    class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow"
                                 >
                             </div>
 
@@ -118,13 +117,13 @@
                         {{-- VERIFIKASI --}}
                         <div x-show="status === 'selesai'">
 
-                            <label class="text-sm font-medium">Tanggal Verifikasi</label>
+                           <label class="text-xs sm:text-sm font-bold text-gray-700">Tanggal Verifikasi</label>
 
                             <input
                                 type="datetime-local"
                                 name="tanggal_verifikasi"
                                 value="{{ old('tanggal_verifikasi', optional($pengembalian->tanggal_verifikasi)->format('Y-m-d\TH:i')) }}"
-                                class="w-full border border-gray-400 rounded-xl px-4 py-3"
+                                class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow"
                             >
 
                         </div>
@@ -138,11 +137,11 @@
                 <div x-show="status === 'selesai'" x-transition class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                     <div>
-                        <h2 class="text-3xl font-bold">
+                        <h2 class="text-xl sm:text-3xl font-bold">
                             Kondisi Barang
                         </h2>
 
-                        <p class="text-gray-500 text-sm">
+                        <p class="text-xs sm:text-sm text-gray-500">
                             Atur kondisi setiap barang yang dikembalikan.
                         </p>
                     </div>
@@ -166,8 +165,8 @@
                                 {{-- nama alat --}}
                                 <div class="flex flex-col gap-1">
 
-                                    <h3 class="font-semibold text-lg">
-                                        {{ $detail->detailPeminjaman->alat->nama_alat }} <span class="text-sm text-gray-500">×{{ $detail->jumlah_kembali }}</span>
+                                    <h3 class="font-semibold text-base sm:text-lg">
+                                        {{ $detail->detailPeminjaman->alat->nama_alat }} <span class="text-xs sm:text-sm text-gray-500">×{{ $detail->jumlah_kembali }}</span>
                                     </h3>
 
                                 </div>
@@ -175,13 +174,11 @@
                                 {{-- kondisi --}}
                                 <div class="flex flex-col gap-2">
 
-                                    <label class="text-sm font-medium">
-                                        Kondisi
-                                    </label>
+                                    <label class="text-xs sm:text-sm font-bold text-gray-700">Kondisi</label>
 
                                     <select
                                         name="items[{{ $index }}][kondisi]"
-                                        class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white focus:outline-none"
+                                        class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow">
                                     >
                                         <option value="lolos"
                                             @selected(old("items.$index.kondisi", $detail->kondisi) == 'lolos')
@@ -201,15 +198,13 @@
                                 {{-- catatan --}}
                                 <div class="flex flex-col gap-2">
 
-                                    <label class="text-sm font-medium">
-                                        Catatan Kondisi
-                                    </label>
+                                    <label class="text-xs sm:text-sm font-bold text-gray-700">Catatan Kondisi</label>
 
                                     <textarea
                                         name="items[{{ $index }}][catatan_kondisi]"
                                         rows="3"
                                         placeholder="Tambahkan catatan kondisi barang..."
-                                        class="w-full border border-gray-400 rounded-xl px-4 py-3 bg-white resize-none focus:outline-none"
+                                        class="w-full border border-gray-400 rounded-xl px-4 py-2.5 sm:py-3 bg-white resize-none text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#363062] transition-shadow"
                                     >{{ old("items.$index.catatan_kondisi", $detail->catatan_kondisi) }}</textarea>
 
                                 </div>
@@ -232,15 +227,12 @@
 
                         <a
                             href="{{ route('admin-pengembalian') }}"
-                            class="w-full text-center border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-100 transition-all"
+                            class="w-full text-center border border-gray-300 rounded-full px-6 py-2.5 sm:py-3 hover:bg-gray-100 transition-all font-bold text-xs sm:text-sm"
                         >
                             Batal
                         </a>
 
-                        <button
-                            type="submit"
-                            class="w-full border border-transparent bg-[#363062] rounded-full px-6 py-3 text-white hover:bg-transparent hover:border-[#363062] hover:text-[#363062] transition-all"
-                        >
+                        <button type="submit" class="w-full border border-transparent bg-[#363062] rounded-full px-6 py-2.5 sm:py-3 text-white hover:bg-white hover:border-[#363062] hover:text-[#363062] transition-all font-bold text-xs sm:text-sm shadow-sm">
                             Update
                         </button>
 

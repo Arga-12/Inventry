@@ -1,4 +1,7 @@
 *.log
+opcode.txt
+schema_inventry.sql
+start.sh
 .DS_Store
 .env
 .env.backup

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        if (! User::where('email', 'test@example.com')->exists()) {
+        if (!User::where('email', 'test@example.com')->exists()) {
             User::factory()->create([
                 'name' => 'Test User',
                 'email' => 'test@example.com',
@@ -40,7 +40,11 @@ class DatabaseSeeder extends Seeder
         $alatDurasi = $alatData['durasis'];
 
         $this->seedPeminjamanAndReturns(
-            $peminjamIds, $petugasIds, $alatIds, $alatDurasi, $adminId
+            $peminjamIds,
+            $petugasIds,
+            $alatIds,
+            $alatDurasi,
+            $adminId
         );
 
         $this->seedActivityLogs($adminId, $petugasIds, $peminjamIds);
@@ -51,21 +55,21 @@ class DatabaseSeeder extends Seeder
     private function seedUsers(): void
     {
         $users = [
-            ['budiadmin',     'Budi Admin',     'admin',   'budiadmin123@gmail.com'],
-            ['budipetugas',   'Budi Petugas',   'petugas', 'budipetugas123@gmail.com'],
-            ['sitipetugas',   'Siti Rahma',     'petugas', 'sitipetugas@gmail.com'],
-            ['budiTarmiji',   'Budi Tarmiji',   'peminjam', 'buditarmiji123@gmail.com'],
-            ['aniputri',      'Ani Putri',      'peminjam', 'aniputri@gmail.com'],
-            ['riskiamalia',   'Riskia Amalia',  'peminjam', 'riskiamalia@gmail.com'],
-            ['dianpratama',   'Dian Pratama',   'peminjam', 'dianpratama@gmail.com'],
-            ['widyautami',    'Widya Utami',    'peminjam', 'widyautami@gmail.com'],
-            ['agungpras',     'Agung Prasetyo', 'peminjam', 'agungprasetyo@gmail.com'],
-            ['dewiastuti',    'Dewi Astuti',    'peminjam', 'dewiastuti@gmail.com'],
-            ['irfanhakim',    'Irfan Hakim',    'peminjam', 'irfanhakim@gmail.com'],
-            ['srimulyani',    'Sri Mulyani',    'peminjam', 'srimulyani@gmail.com'],
-            ['hermansyah',    'Hermansyah',     'peminjam', 'hermansyah@gmail.com'],
-            ['fitrianingsih', 'Fitrianingsih',  'peminjam', 'fitrianingsih@gmail.com'],
-            ['bayusaputra',   'Bayu Saputra',   'peminjam', 'bayusaputra@gmail.com'],
+            ['budiadmin', 'Budi Admin', 'admin', 'budiadmin123@gmail.com'],
+            ['budipetugas', 'Budi Petugas', 'petugas', 'budipetugas123@gmail.com'],
+            ['sitipetugas', 'Siti Rahma', 'petugas', 'sitipetugas@gmail.com'],
+            ['budiTarmiji', 'Budi Tarmiji', 'peminjam', 'buditarmiji123@gmail.com'],
+            ['aniputri', 'Ani Putri', 'peminjam', 'aniputri@gmail.com'],
+            ['riskiamalia', 'Riskia Amalia', 'peminjam', 'riskiamalia@gmail.com'],
+            ['dianpratama', 'Dian Pratama', 'peminjam', 'dianpratama@gmail.com'],
+            ['widyautami', 'Widya Utami', 'peminjam', 'widyautami@gmail.com'],
+            ['agungpras', 'Agung Prasetyo', 'peminjam', 'agungprasetyo@gmail.com'],
+            ['dewiastuti', 'Dewi Astuti', 'peminjam', 'dewiastuti@gmail.com'],
+            ['irfanhakim', 'Irfan Hakim', 'peminjam', 'irfanhakim@gmail.com'],
+            ['srimulyani', 'Sri Mulyani', 'peminjam', 'srimulyani@gmail.com'],
+            ['hermansyah', 'Hermansyah', 'peminjam', 'hermansyah@gmail.com'],
+            ['fitrianingsih', 'Fitrianingsih', 'peminjam', 'fitrianingsih@gmail.com'],
+            ['bayusaputra', 'Bayu Saputra', 'peminjam', 'bayusaputra@gmail.com'],
         ];
 
         foreach ($users as [$username, $nama, $role, $email]) {
@@ -85,7 +89,7 @@ class DatabaseSeeder extends Seeder
     {
         $categories = [
             ['KTG-001', 'Elektronik', '#363062'],
-            ['KTG-002', 'Perkakas',   '#F99417'],
+            ['KTG-002', 'Perkakas', '#F99417'],
             ['KTG-003', 'Kebersihan', '#4D4C7D'],
             ['KTG-004', 'Alat Tulis', '#2A2952'],
         ];
@@ -108,20 +112,20 @@ class DatabaseSeeder extends Seeder
         ];
 
         $alatList = [
-            ['E001', 'Elektronik', 'Proyektor Epson',     15, 120],
-            ['E002', 'Elektronik', 'Laptop Dell',         12, 180],
-            ['E003', 'Elektronik', 'Kamera DSLR',          8,  90],
-            ['E004', 'Elektronik', 'Speaker Aktif',       20,  60],
-            ['P001', 'Perkakas',   'Bor Listrik',         10, 120],
-            ['P002', 'Perkakas',   'Gerinda Tangan',       6,  90],
-            ['P003', 'Perkakas',   'Mesin Las',            4, 180],
-            ['P004', 'Perkakas',   'Gergaji Mesin',        8,  60],
-            ['K001', 'Kebersihan', 'Vacuum Cleaner',       7,  60],
-            ['K002', 'Kebersihan', 'Mesin Cuci',           5, 120],
-            ['K003', 'Kebersihan', 'Blower',               9,  30],
-            ['A001', 'Alat Tulis', 'Printer',              6,  90],
-            ['A002', 'Alat Tulis', 'Scanner',              4,  60],
-            ['A003', 'Alat Tulis', 'Whiteboard',           8, 120],
+            ['E001', 'Elektronik', 'Proyektor Epson', 15, 120],
+            ['E002', 'Elektronik', 'Laptop Dell', 12, 180],
+            ['E003', 'Elektronik', 'Kamera DSLR', 8, 90],
+            ['E004', 'Elektronik', 'Speaker Aktif', 20, 60],
+            ['P001', 'Perkakas', 'Bor Listrik', 10, 120],
+            ['P002', 'Perkakas', 'Gerinda Tangan', 6, 90],
+            ['P003', 'Perkakas', 'Mesin Las', 4, 180],
+            ['P004', 'Perkakas', 'Gergaji Mesin', 8, 60],
+            ['K001', 'Kebersihan', 'Vacuum Cleaner', 7, 60],
+            ['K002', 'Kebersihan', 'Mesin Cuci', 5, 120],
+            ['K003', 'Kebersihan', 'Blower', 9, 30],
+            ['A001', 'Alat Tulis', 'Printer', 6, 90],
+            ['A002', 'Alat Tulis', 'Scanner', 4, 60],
+            ['A003', 'Alat Tulis', 'Whiteboard', 8, 120],
         ];
 
         $ids = [];
@@ -200,16 +204,12 @@ class DatabaseSeeder extends Seeder
                     'updated_at' => $pengajuan,
                 ]);
 
-                $numItems = rand(1, 3);
-                $usedAlatKeys = [];
-                for ($j = 0; $j < $numItems; $j++) {
-                    $alatKey = array_rand($alatIds);
-                    while (in_array($alatKey, $usedAlatKeys)) {
-                        $alatKey = array_rand($alatIds);
-                    }
-                    $usedAlatKeys[] = $alatKey;
+                $validAlatIds = array_keys(array_filter($alatDurasi, fn($d) => $d == $selectedDurasi));
+                shuffle($validAlatIds);
+                $numItems = min(rand(1, 3), count($validAlatIds));
 
-                    $alatId = $alatIds[$alatKey];
+                for ($j = 0; $j < $numItems; $j++) {
+                    $alatId = $validAlatIds[$j];
                     $jumlah = rand(1, 2);
 
                     $detailId = DB::table('detail_peminjaman')->insertGetId([
@@ -256,8 +256,12 @@ class DatabaseSeeder extends Seeder
                         $kondisi = $hasRusak && rand(1, 3) === 1 ? 'rusak' : 'lolos';
                         $catatan = $kondisi === 'rusak'
                             ? fake()->randomElement([
-                                'Kabel putus', 'Body penyok', 'Tidak bisa menyala',
-                                'Tombol rusak', 'Gagang longgar', 'LCD retak',
+                                'Kabel putus',
+                                'Body penyok',
+                                'Tidak bisa menyala',
+                                'Tombol rusak',
+                                'Gagang longgar',
+                                'LCD retak',
                             ])
                             : null;
 
@@ -332,18 +336,13 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => $pengajuan,
             ]);
 
-            $numItems = rand(1, 3);
-            $usedAlatKeys = [];
+            $validAlatIds = array_keys(array_filter($alatDurasi, fn($d) => $d == $selectedDurasi));
+            shuffle($validAlatIds);
+            $numItems = min(rand(1, 3), count($validAlatIds));
             $detailIds = [];
 
             for ($j = 0; $j < $numItems; $j++) {
-                $alatKey = array_rand($alatIds);
-                while (in_array($alatKey, $usedAlatKeys)) {
-                    $alatKey = array_rand($alatIds);
-                }
-                $usedAlatKeys[] = $alatKey;
-
-                $alatId = $alatIds[$alatKey];
+                $alatId = $validAlatIds[$j];
                 $jumlah = rand(1, 2);
 
                 $detailId = DB::table('detail_peminjaman')->insertGetId([
@@ -383,9 +382,14 @@ class DatabaseSeeder extends Seeder
                     $kondisi = $hasRusak && rand(1, 3) === 1 ? 'rusak' : 'lolos';
                     $catatan = $kondisi === 'rusak'
                         ? fake()->randomElement([
-                            'Kabel putus', 'Body penyok', 'Tidak bisa menyala',
-                            'Tombol rusak', 'Gagang longgar', 'LCD retak',
-                            'Goresan di bodi', 'Konektor longgar',
+                            'Kabel putus',
+                            'Body penyok',
+                            'Tidak bisa menyala',
+                            'Tombol rusak',
+                            'Gagang longgar',
+                            'LCD retak',
+                            'Goresan di bodi',
+                            'Konektor longgar',
                         ])
                         : null;
 
@@ -429,16 +433,13 @@ class DatabaseSeeder extends Seeder
                 'created_at' => $pengajuan,
                 'updated_at' => $pengajuan,
             ]);
-            $usedAlatKeys = [];
-            for ($j = 0; $j < rand(1, 2); $j++) {
-                $alatKey = array_rand($alatIds);
-                while (in_array($alatKey, $usedAlatKeys)) {
-                    $alatKey = array_rand($alatIds);
-                }
-                $usedAlatKeys[] = $alatKey;
+            $validAlatIds = array_keys(array_filter($alatDurasi, fn($d) => $d == $selectedDurasi));
+            shuffle($validAlatIds);
+            $numItems = min(rand(1, 2), count($validAlatIds));
+            for ($j = 0; $j < $numItems; $j++) {
                 DB::table('detail_peminjaman')->insert([
                     'peminjaman_id' => $peminjamanId,
-                    'alat_id' => $alatIds[$alatKey],
+                    'alat_id' => $validAlatIds[$j],
                     'jumlah' => rand(1, 2),
                     'created_at' => $pengajuan,
                     'updated_at' => $pengajuan,
@@ -448,27 +449,30 @@ class DatabaseSeeder extends Seeder
         }
 
         // 1 'jatuh_tempo' (deadline passed but < 10 min ago)
+        $selectedDurasi = $this->pickDuration();
         $peminjamId = $peminjamIds[array_rand($peminjamIds)];
         $petugasId = $petugasIds[array_rand($petugasIds)];
-        $pengajuan = (clone $now)->subHours(3)->subMinutes(rand(0, 30));
-        $tanggalSetujui = (clone $pengajuan)->addMinutes(5);
         $deadline = (clone $now)->subMinutes(rand(1, 8));
+        $tanggalSetujui = (clone $deadline)->subMinutes($selectedDurasi);
+        $pengajuan = (clone $tanggalSetujui)->subMinutes(rand(2, 5));
         $kode = $this->generateKodePeminjaman($pengajuan);
         $peminjamanId = DB::table('peminjaman')->insertGetId([
             'kode_peminjaman' => $kode,
             'peminjam_id' => $peminjamId,
             'petugas_id' => $petugasId,
             'status' => 'jatuh_tempo',
-            'durasi' => (int) $tanggalSetujui->diffInMinutes($deadline),
+            'durasi' => $selectedDurasi,
             'deadline' => $deadline,
             'tanggal_pengajuan' => $pengajuan,
             'tanggal_disetujui' => $tanggalSetujui,
             'created_at' => $pengajuan,
             'updated_at' => $pengajuan,
         ]);
+        $validAlatIds = array_keys(array_filter($alatDurasi, fn($d) => $d == $selectedDurasi));
+        shuffle($validAlatIds);
         DB::table('detail_peminjaman')->insert([
             'peminjaman_id' => $peminjamanId,
-            'alat_id' => $alatIds[array_rand($alatIds)],
+            'alat_id' => $validAlatIds[0],
             'jumlah' => 1,
             'created_at' => $pengajuan,
             'updated_at' => $pengajuan,
@@ -479,21 +483,24 @@ class DatabaseSeeder extends Seeder
             $peminjamId = $peminjamIds[array_rand($peminjamIds)];
             $pengajuan = (clone $now)->subMinutes(rand(10, 120));
             $kode = $this->generateKodePeminjaman($pengajuan);
+            $selectedDurasi = $this->pickDuration();
             $peminjamanId = DB::table('peminjaman')->insertGetId([
                 'kode_peminjaman' => $kode,
                 'peminjam_id' => $peminjamId,
                 'petugas_id' => null,
                 'status' => 'menunggu',
-                'durasi' => $this->pickDuration(),
+                'durasi' => $selectedDurasi,
                 'deadline' => null,
                 'tanggal_pengajuan' => $pengajuan,
                 'tanggal_disetujui' => null,
                 'created_at' => $pengajuan,
                 'updated_at' => $pengajuan,
             ]);
+            $validAlatIds = array_keys(array_filter($alatDurasi, fn($d) => $d == $selectedDurasi));
+            shuffle($validAlatIds);
             DB::table('detail_peminjaman')->insert([
                 'peminjaman_id' => $peminjamanId,
-                'alat_id' => $alatIds[array_rand($alatIds)],
+                'alat_id' => $validAlatIds[0],
                 'jumlah' => rand(1, 2),
                 'created_at' => $pengajuan,
                 'updated_at' => $pengajuan,
@@ -542,7 +549,7 @@ class DatabaseSeeder extends Seeder
         // Update status count for the forced 'jatuh_tempo' we added
         $statusDistribution['jatuh_tempo']++;
 
-        echo 'Status distribution: '.json_encode($statusDistribution).PHP_EOL;
+        echo 'Status distribution: ' . json_encode($statusDistribution) . PHP_EOL;
     }
 
     private function seedActivityLogs(
@@ -756,22 +763,22 @@ class DatabaseSeeder extends Seeder
     private function generateKodePeminjaman(Carbon $date): string
     {
         $ym = $date->format('ym');
-        if (! isset($this->peminjamanCounter[$ym])) {
+        if (!isset($this->peminjamanCounter[$ym])) {
             $this->peminjamanCounter[$ym] = 0;
         }
         $this->peminjamanCounter[$ym]++;
 
-        return 'INV-PJ-'.$ym.'-'.str_pad($this->peminjamanCounter[$ym], 3, '0', STR_PAD_LEFT);
+        return 'INV-PJ-' . $ym . '-' . str_pad($this->peminjamanCounter[$ym], 3, '0', STR_PAD_LEFT);
     }
 
     private function generateKodePengembalian(Carbon $date): string
     {
         $ym = $date->format('ym');
-        if (! isset($this->pengembalianCounter[$ym])) {
+        if (!isset($this->pengembalianCounter[$ym])) {
             $this->pengembalianCounter[$ym] = 0;
         }
         $this->pengembalianCounter[$ym]++;
 
-        return 'INV-PG-'.$ym.'-'.str_pad($this->pengembalianCounter[$ym], 3, '0', STR_PAD_LEFT);
+        return 'INV-PG-' . $ym . '-' . str_pad($this->pengembalianCounter[$ym], 3, '0', STR_PAD_LEFT);
     }
 }

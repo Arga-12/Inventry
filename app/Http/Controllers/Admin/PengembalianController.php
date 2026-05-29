@@ -62,14 +62,14 @@ class PengembalianController extends Controller
             ->when($searchMenunggu, function ($q) use ($searchMenunggu) {
                 $q->where(function ($query) use ($searchMenunggu) {
                     $query->where('kode_pengembalian', 'like', "%{$searchMenunggu}%")
-                        ->orWhereHas('peminjaman.peminjam', fn ($q2) => $q2->where('nama_lengkap', 'like', "%{$searchMenunggu}%"));
+                        ->orWhereHas('peminjaman.peminjam', fn($q2) => $q2->where('nama_lengkap', 'like', "%{$searchMenunggu}%"));
                 });
             })
             ->when($durasiMenunggu, function ($q) use ($durasiMenunggu) {
-                $q->whereHas('peminjaman.detailPeminjaman.alat', fn ($q2) => $q2->where('durasi', $durasiMenunggu));
+                $q->whereHas('peminjaman.detailPeminjaman.alat', fn($q2) => $q2->where('durasi', $durasiMenunggu));
             })
             ->latest()
-            ->get();
+            ->paginate(4, ['*'], 'page_menunggu');
 
         // query untuk selesai
         $selesai = Pengembalian::with([
@@ -80,11 +80,11 @@ class PengembalianController extends Controller
             ->when($searchSelesai, function ($q) use ($searchSelesai) {
                 $q->where(function ($query) use ($searchSelesai) {
                     $query->where('kode_pengembalian', 'like', "%{$searchSelesai}%")
-                        ->orWhereHas('peminjaman.peminjam', fn ($q2) => $q2->where('nama_lengkap', 'like', "%{$searchSelesai}%"));
+                        ->orWhereHas('peminjaman.peminjam', fn($q2) => $q2->where('nama_lengkap', 'like', "%{$searchSelesai}%"));
                 });
             })
             ->when($durasiSelesai, function ($q) use ($durasiSelesai) {
-                $q->whereHas('peminjaman.detailPeminjaman.alat', fn ($q2) => $q2->where('durasi', $durasiSelesai));
+                $q->whereHas('peminjaman.detailPeminjaman.alat', fn($q2) => $q2->where('durasi', $durasiSelesai));
             })
             ->when($kondisiSelesai, function ($q) use ($kondisiSelesai) {
                 $q->whereHas('detailPengembalian', function ($query) use ($kondisiSelesai) {
@@ -92,7 +92,7 @@ class PengembalianController extends Controller
                 });
             })
             ->latest()
-            ->get();
+            ->paginate(4, ['*'], 'page_selesai');
 
         return view('admin.pengembalian.index', compact('menunggu', 'selesai', 'stats', 'durasiList'));
     }
@@ -114,7 +114,7 @@ class PengembalianController extends Controller
                 'terlambat',
             ])
 
-        // cegah yang sudah punya pengembalian
+            // cegah yang sudah punya pengembalian
             ->whereDoesntHave('pengembalian')
             ->latest()
             ->get();
@@ -158,10 +158,12 @@ class PengembalianController extends Controller
                 ->findOrFail($valid['peminjaman_id']);
 
             // hanya boleh dari status jatuh tempo / terlambat
-            if (! in_array($peminjaman->status, [
-                'jatuh_tempo',
-                'terlambat',
-            ])) {
+            if (
+                !in_array($peminjaman->status, [
+                    'jatuh_tempo',
+                    'terlambat',
+                ])
+            ) {
 
                 DB::rollBack();
 
@@ -184,14 +186,16 @@ class PengembalianController extends Controller
                     ]);
             }
 
-            if (Carbon::parse($valid['tanggal_pengembalian'])->startOfDay()->lt(
-                Carbon::parse($peminjaman->tanggal_disetujui)->startOfDay()
-            )) {
+            if (
+                Carbon::parse($valid['tanggal_pengembalian'])->startOfDay()->lt(
+                    Carbon::parse($peminjaman->tanggal_disetujui)->startOfDay()
+                )
+            ) {
                 DB::rollBack();
 
                 return back()->withErrors([
-                    'tanggal_pengembalian' => 'Tanggal pengembalian tidak boleh lebih awal dari tanggal peminjaman ('.
-                        Carbon::parse($peminjaman->tanggal_disetujui)->format('d-m-Y').').',
+                    'tanggal_pengembalian' => 'Tanggal pengembalian tidak boleh lebih awal dari tanggal peminjaman (' .
+                        Carbon::parse($peminjaman->tanggal_disetujui)->format('d-m-Y') . ').',
                 ]);
             }
 
@@ -277,7 +281,7 @@ class PengembalianController extends Controller
                 'modul' => 'pengembalian',
                 'aksi' => 'create',
                 'target' => $pengembalian->kode_pengembalian,
-                'keterangan' => 'Membuat pengembalian untuk peminjaman '.$peminjaman->kode_peminjaman,
+                'keterangan' => 'Membuat pengembalian untuk peminjaman ' . $peminjaman->kode_peminjaman,
                 'status' => 'success',
             ]);
 
@@ -377,8 +381,10 @@ class PengembalianController extends Controller
             $peminjaman = $pengembalian->peminjaman;
 
             // validate tanggal pengembalian tidak boleh kurang dari tanggal pinjam
-            if ($peminjaman->tanggal_disetujui &&
-                Carbon::parse($valid['tanggal_pengembalian'])->lt($peminjaman->tanggal_disetujui)) {
+            if (
+                $peminjaman->tanggal_disetujui &&
+                Carbon::parse($valid['tanggal_pengembalian'])->lt($peminjaman->tanggal_disetujui)
+            ) {
                 DB::rollBack();
 
                 return back()->withErrors([
@@ -387,8 +393,10 @@ class PengembalianController extends Controller
             }
 
             // vivaldi tanggal pengembalian tidak boleh kurang dari deadline
-            if ($peminjaman->deadline &&
-                Carbon::parse($valid['tanggal_pengembalian'])->lt($peminjaman->deadline)) {
+            if (
+                $peminjaman->deadline &&
+                Carbon::parse($valid['tanggal_pengembalian'])->lt($peminjaman->deadline)
+            ) {
                 DB::rollBack();
 
                 return back()->withErrors([
@@ -416,7 +424,7 @@ class PengembalianController extends Controller
                     'detail_peminjaman_id' => $detail->id,
                 ])->first();
 
-                if (! $detailPengembalian) {
+                if (!$detailPengembalian) {
                     continue;
                 }
 
@@ -450,7 +458,7 @@ class PengembalianController extends Controller
                 'modul' => 'pengembalian',
                 'aksi' => 'update',
                 'target' => $pengembalian->kode_pengembalian,
-                'keterangan' => 'Mengupdate pengembalian dengan status "'.$valid['status'].'"',
+                'keterangan' => 'Mengupdate pengembalian dengan status "' . $valid['status'] . '"',
                 'status' => 'success',
             ]);
 
@@ -467,13 +475,13 @@ class PengembalianController extends Controller
                 'modul' => 'pengembalian',
                 'aksi' => 'update',
                 'target' => $pengembalian->kode_pengembalian,
-                'keterangan' => 'Gagal update pengembalian: '.$th->getMessage(),
+                'keterangan' => 'Gagal update pengembalian: ' . $th->getMessage(),
                 'status' => 'error',
             ]);
 
             return back()
                 ->withInput()
-                ->with('error', 'Gagal update pengembalian: '.$th->getMessage());
+                ->with('error', 'Gagal update pengembalian: ' . $th->getMessage());
         }
     }
 
@@ -499,7 +507,7 @@ class PengembalianController extends Controller
 
             // kembalikan status peminjaman
             $pengembalian->peminjaman->update([
-                'status' => $pengembalian->peminjaman->tanggal_kembali < now()
+                'status' => $pengembalian->peminjaman->deadline < now()
                     ? 'terlambat'
                     : 'jatuh_tempo',
             ]);
@@ -526,7 +534,7 @@ class PengembalianController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return back()->with('error', 'Gagal menghapus pengembalian: '.$th->getMessage());
+            return back()->with('error', 'Gagal menghapus pengembalian: ' . $th->getMessage());
         }
     }
 
@@ -542,7 +550,7 @@ class PengembalianController extends Controller
         $prefix = "INV-PG-{$tahun}{$bulan}-";
 
         // cari kode terakhir bulan ini
-        $lastpengembalian = Pengembalian::where('kode_pengembalian', 'like', $prefix.'%')
+        $lastpengembalian = Pengembalian::where('kode_pengembalian', 'like', $prefix . '%')
             ->latest('id')
             ->first();
 
@@ -563,6 +571,6 @@ class PengembalianController extends Controller
         $nomor = str_pad($nomor, 3, '0', STR_PAD_LEFT);
 
         // hasil akhir
-        return $prefix.$nomor;
+        return $prefix . $nomor;
     }
 }

@@ -10,14 +10,27 @@
         body { font-family: 'Jost', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 w-screen h-screen flex items-center justify-center">
+<body class="bg-gray-100 min-h-screen w-screen flex flex-col items-center justify-center gap-6 px-4 py-8">
 
-    <div class="bg-white w-[90%] max-w-5xl rounded-[20px] shadow-xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24">
+    {{-- Logo: di luar card di mobile, di dalam card di desktop --}}
+    <div class="flex items-center gap-4 md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#363062] shrink-0" viewBox="0 0 48 48">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M5.5 5.5h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 15.25h7.75V23H5.5zm19.5 0h7.75V23H25zm9.75 0h7.75V23h-7.75zM5.5 25h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zM25 25h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 34.75h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75z" stroke-width="1"/>
+        </svg>
+        <div class="flex flex-col">
+            <h1 class="font-bold text-3xl text-[#363062] tracking-wide leading-none">Inventry</h1>
+            <h2 class="text-sm font-normal text-[#4D4C7D] tracking-wide mt-0.5">Lending Platform</h2>
+        </div>
+    </div>
 
-        <div class="flex items-center gap-6 w-full md:w-1/2 justify-center md:justify-end">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-[#363062]" viewBox="0 0 48 48">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M5.5 5.5h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 15.25h7.75V23H5.5zm19.5 0h7.75V23H25zm9.75 0h7.75V23h-7.75zM5.5 25h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zM25 25h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 34.75h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75z" stroke-width="1"/>
-                </svg>
+    {{-- Card --}}
+    <div class="bg-white w-full max-w-5xl rounded-[20px] shadow-xl p-8 md:p-16 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+
+        {{-- Logo: hanya tampil di desktop (di dalam card) --}}
+        <div class="hidden md:flex items-center gap-4 w-full md:w-1/2 justify-center md:justify-end">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-[#363062] shrink-0" viewBox="0 0 48 48">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M5.5 5.5h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 15.25h7.75V23H5.5zm19.5 0h7.75V23H25zm9.75 0h7.75V23h-7.75zM5.5 25h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zM25 25h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75zM5.5 34.75h7.75v7.75H5.5zm9.75 0H23v7.75h-7.75zm9.75 0h7.75v7.75H25zm9.75 0h7.75v7.75h-7.75z" stroke-width="1"/>
+            </svg>
             <div class="flex flex-col">
                 <h1 class="font-bold text-5xl text-[#363062] tracking-wide mb-1">Inventry</h1>
                 <h2 class="text-lg font-normal text-[#4D4C7D] tracking-wide">Lending Platform</h2>

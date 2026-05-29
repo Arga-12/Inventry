@@ -33,35 +33,54 @@ class AlatbarangController extends Controller
 
         // buat Base Query dengan Eager Loading
         $alat = Alat::with('kategori')
+            ->withSum([
+                'detailPeminjaman as dipinjam_count' => function ($query) {
+                    $query->whereHas('peminjaman', function ($q) {
+                        $q->whereIn('status', ['dipinjam', 'jatuh_tempo', 'terlambat']);
+                    });
+                }
+            ], 'jumlah')
             ->when($search, function ($query, $search) {
-                // pencarian berdasarkan nama_alat
-                return $query->where('nama_alat', 'like', '%'.$search.'%');
+                return $query->where('nama_alat', 'like', '%' . $search . '%');
             })
             ->when($kategori_id, function ($query, $kategori_id) {
-                // filter berdasarkan kategori
                 return $query->where('kategori_id', $kategori_id);
             })
             ->when($durasi, function ($query, $durasi) {
-                // cari berdasarkan durasi
                 return $query->where('durasi', $durasi);
             })
-            // eksekusi langsung search nya
             ->latest()
-            ->get();
+            ->paginate(9)
+            ->withQueryString();
 
         // eksekusi query untuk Stok Menipis (tetap pakai base query yang sudah difilter)
-        $stokmenipisRaw = Alat::with('kategori')->where('stok', '<=', 7)
+        $stokmenipis = Alat::with('kategori')
+            ->withSum([
+                'detailPeminjaman as dipinjam_count' => function ($query) {
+                    $query->whereHas('peminjaman', function ($q) {
+                        $q->whereIn('status', ['dipinjam', 'jatuh_tempo', 'terlambat']);
+                    });
+                }
+            ], 'jumlah')
+            ->where('stok', '<=', 7)
             ->when($search_stok, function ($query, $search_stok) {
-                return $query->where('nama_alat', 'like', '%'.$search_stok.'%');
+                return $query->where('nama_alat', 'like', '%' . $search_stok . '%');
             })
             ->when($kategori_stok, function ($query, $kategori_stok) {
                 return $query->where('kategori_id', $kategori_stok);
-            })->get();
+            })
+            ->latest()
+            ->paginate(6, ['*'], 'stok_page')
+            ->withQueryString();
 
-        // view untuk stok menipis
-        $totalstokmenipis = $stokmenipisRaw->count();
-
-        $stokmenipis = $stokmenipisRaw;
+        $totalstokmenipis = Alat::where('stok', '<=', 7)
+            ->when($search_stok, function ($query, $search_stok) {
+                return $query->where('nama_alat', 'like', '%' . $search_stok . '%');
+            })
+            ->when($kategori_stok, function ($query, $kategori_stok) {
+                return $query->where('kategori_id', $kategori_stok);
+            })
+            ->count();
 
         // view total stok yang ada
         $stoktotal = Alat::sum('stok');
@@ -127,7 +146,7 @@ class AlatbarangController extends Controller
 
         // substr() ambil char tertentu, mula dari index 0 kosong hingga 1, terambil 1 char
         $inisial = strtoupper(substr($kategori->nama_kategori, 0, 1));
-        $kode = $inisial.str_pad($last, 3, '0', STR_PAD_LEFT);
+        $kode = $inisial . str_pad($last, 3, '0', STR_PAD_LEFT);
 
         $alat->kode_alat = $kode;
 
@@ -140,7 +159,7 @@ class AlatbarangController extends Controller
             'modul' => 'alat',
             'aksi' => 'create',
             'target' => $alat->nama_alat,
-            'keterangan' => 'Admin menambahkan alat baru dengan kode '.$alat->kode_alat,
+            'keterangan' => 'Admin menambahkan alat baru dengan kode ' . $alat->kode_alat,
             'status' => 'success',
         ]);
 
@@ -227,7 +246,9 @@ class AlatbarangController extends Controller
         // cek apakah alat ini punya relasi di tabel detail_peminjaman
         // yang statusnya belum 'dikembalikan'
         $sedangDipinjam = $alat->detailPeminjaman()
-            ->whereIn('status', ['menunggu', 'dipinjam', 'jatuh_tempo', 'terlambat'])
+            ->whereHas('peminjaman', function ($query) {
+                $query->whereIn('status', ['menunggu', 'dipinjam', 'jatuh_tempo', 'terlambat']);
+            })
             ->exists();
 
         if ($sedangDipinjam) {

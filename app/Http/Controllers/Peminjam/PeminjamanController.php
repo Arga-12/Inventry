@@ -91,7 +91,7 @@ class PeminjamanController extends Controller
             $riwayatQuery->where('status', $request->status_riwayat);
         }
 
-        $riwayat = $riwayatQuery->latest()->paginate(10);
+        $riwayat = $riwayatQuery->latest()->paginate(4);
 
         // prosess card
         foreach ($menunggu as $item) {

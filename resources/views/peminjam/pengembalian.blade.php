@@ -1,19 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4">
-    <div class="flex flex-col mb-8">
-        <h1 class="text-4xl font-bold text-gray-900">Pengembalian Saya</h1>
+<div class="mx-auto pt-20 pb-8 lg:py-8 px-4">
+
+    <div class="flex flex-col gap-8">
+
+    <div class="flex flex-col">
+        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900">Pengembalian Saya</h1>
         <p class="text-gray-500">Pantau status pengembalian alat & barang Anda</p>
     </div>
 
     {{-- MENUNGGU VERIFIKASI --}}
     <div class="mb-8">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-2xl font-bold">Menunggu Verifikasi</h2>
+            <h2 class="text-lg sm:text-2xl font-bold">Menunggu Verifikasi</h2>
             <div class="flex items-center gap-2">
-                <div class="h-2 w-2 bg-yellow-500 rounded-full"></div>
-                <span class="text-sm text-gray-500">{{ $menunggu->count() }} Pengembalian</span>
+                <div class="h-1.5 w-1.5 sm:h-2 sm:w-2 bg-yellow-500 rounded-full"></div>
+                <span class="text-xs sm:text-sm text-gray-500">{{ $menunggu->count() }} Pengembalian</span>
             </div>
         </div>
 
@@ -42,7 +45,7 @@
                     </button>
 
                     <div x-show="open" @click.outside="open = false" style="display:none" x-transition.opacity
-                        class="absolute right-0 z-[100] mt-2 w-48 rounded-[15px] bg-white shadow-xl ring-1 ring-black ring-opacity-5 overflow-y-auto border border-gray-100">
+                        class="absolute right-0 z-[100] mt-2 w-48 rounded-[15px] bg-white shadow-xl ring-1 ring-black ring-opacity-5 max-h-[70vh] overflow-y-auto border border-gray-100">
                         <div class="py-2">
                             <p class="px-4 py-2 text-xs font-bold text-gray-500 mb-1">Filter Durasi</p>
                             <label class="flex items-center px-4 py-2.5 text-sm text-[#363062] hover:bg-gray-50 cursor-pointer transition">
@@ -90,13 +93,13 @@
     </div>
 
     {{-- SECTION SELESAI --}}
-    @if($selesai->count() > 0)
-    <div class="mt-8">
+    @if($selesai->isNotEmpty())
+    <div class="mt-8" id="selesai">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-2xl font-bold">Selesai Dikembalikan</h2>
+            <h2 class="text-lg sm:text-2xl font-bold">Selesai Dikembalikan</h2>
             <div class="flex items-center gap-2">
-                <div class="h-2 w-2 bg-green-500 rounded-full"></div>
-                <span class="text-sm text-gray-500">{{ $selesai->count() }} Pengembalian</span>
+                <div class="h-1.5 w-1.5 sm:h-2 sm:w-2 bg-green-500 rounded-full"></div>
+                <span class="text-xs sm:text-sm text-gray-500">{{ $selesai->total() }} Pengembalian</span>
             </div>
         </div>
 
@@ -125,7 +128,7 @@
                     </button>
 
                     <div x-show="open" @click.outside="open = false" style="display:none" x-transition.opacity
-                        class="absolute right-0 z-[100] mt-2 w-48 rounded-[15px] bg-white shadow-xl ring-1 ring-black ring-opacity-5 overflow-y-auto border border-gray-100">
+                        class="absolute right-0 z-[100] mt-2 w-48 rounded-[15px] bg-white shadow-xl ring-1 ring-black ring-opacity-5 max-h-[70vh] overflow-y-auto border border-gray-100">
                         <div class="py-2">
                             <p class="px-4 py-2 text-xs font-bold text-gray-500 mb-1">Filter Kondisi</p>
                             <label class="flex items-center px-4 py-2.5 text-sm text-[#363062] hover:bg-gray-50 cursor-pointer transition">
@@ -173,13 +176,93 @@
 
         {{-- LIST SELESAI --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            @foreach($selesai as $item)
+            @forelse($selesai as $item)
                 <x-card-pengembalian :pengembalian="$item" />
-            @endforeach
+            @empty
+                <div class="lg:col-span-2 flex flex-col gap-3 items-center justify-center bg-white border border-gray-300 rounded-[20px] p-6 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path fill="currentColor" d="M17 3.34a10 10 0 1 1-14.995 8.984L2 12l.005-.324A10 10 0 0 1 17 3.34M15 14H9l-.117.007a1 1 0 0 0 0 1.986L9 16h6l.117-.007a1 1 0 0 0 0-1.986zM9.01 9l-.127.007a1 1 0 0 0 0 1.986L9 11l.127-.007a1 1 0 0 0 0-1.986zm6 0l-.127.007a1 1 0 0 0 0 1.986L15 11l.127-.007a1 1 0 0 0 0-1.986z" />
+                    </svg>
+                    Belum ada data pengembalian yang selesai.
+                </div>
+            @endforelse
         </div>
+
+        {{-- PAGINATION SELESAI --}}
+        @if($selesai->hasPages())
+        <div class="mt-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm text-gray-500 order-2 sm:order-1 text-center sm:text-left">
+                    Menampilkan {{ $selesai->firstItem() }} sampai {{ $selesai->lastItem() }} dari {{ $selesai->total() }} pengembalian
+                </div>
+                <div class="flex items-center gap-2 order-1 sm:order-2">
+                    {{-- Prev --}}
+                    @if($selesai->onFirstPage())
+                    <button type="button" disabled class="p-3 rounded-full border text-sm flex items-center justify-center opacity-50 cursor-not-allowed bg-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-180" viewBox="0 0 12 24">
+                            <defs><path id="sel_prev" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs>
+                            <use fill-rule="evenodd" href="#sel_prev" transform="rotate(-180 5.02 9.505)"/>
+                        </svg>
+                    </button>
+                    @else
+                    <a href="{{ $selesai->appends(request()->query())->previousPageUrl() }}#selesai" class="p-3 rounded-full border bg-white text-sm flex items-center justify-center hover:bg-gray-100 transition shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-180" viewBox="0 0 12 24">
+                            <defs><path id="sel_prev" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs>
+                            <use fill-rule="evenodd" href="#sel_prev" transform="rotate(-180 5.02 9.505)"/>
+                        </svg>
+                    </a>
+                    @endif
+
+                    {{-- Nomor Halaman --}}
+                    <div class="flex items-center gap-1 bg-gray-100 p-1.5 sm:p-2 rounded-full shadow-inner">
+                        @php
+                            $cp = $selesai->currentPage();
+                            $lp = $selesai->lastPage();
+                            $s  = max(1, $cp - 1);
+                            $e  = min($lp, $cp + 1);
+
+                            if ($s > 1) {
+                                $cls = (1 == $cp) ? 'bg-[#363062] text-white' : 'hover:bg-gray-200 text-gray-700';
+                                echo '<a href="' . $selesai->appends(request()->query())->url(1) . '#selesai" class="w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition ' . $cls . '">1</a>';
+                                if ($s > 2) echo '<span class="px-1 text-gray-400 text-xs">...</span>';
+                            }
+                            for ($i = $s; $i <= $e; $i++) {
+                                $cls = ($i == $cp) ? 'bg-[#363062] text-white' : 'hover:bg-gray-200 text-gray-700';
+                                echo '<a href="' . $selesai->appends(request()->query())->url($i) . '#selesai" class="w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition ' . $cls . '">' . $i . '</a>';
+                            }
+                            if ($e < $lp) {
+                                if ($e < $lp - 1) echo '<span class="px-1 text-gray-400 text-xs">...</span>';
+                                $cls = ($lp == $cp) ? 'bg-[#363062] text-white' : 'hover:bg-gray-200 text-gray-700';
+                                echo '<a href="' . $selesai->appends(request()->query())->url($lp) . '#selesai" class="w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition ' . $cls . '">' . $lp . '</a>';
+                            }
+                        @endphp
+                    </div>
+
+                    {{-- Next --}}
+                    @if($selesai->hasMorePages())
+                    <a href="{{ $selesai->appends(request()->query())->nextPageUrl() }}#selesai" class="p-3 rounded-full border bg-white text-sm flex items-center justify-center hover:bg-gray-100 transition shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 12 24">
+                            <defs><path id="sel_next" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs>
+                            <use fill-rule="evenodd" href="#sel_next" transform="rotate(-180 5.02 9.505)"/>
+                        </svg>
+                    </a>
+                    @else
+                    <button type="button" disabled class="p-3 rounded-full border text-sm flex items-center justify-center opacity-50 cursor-not-allowed bg-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 12 24">
+                            <defs><path id="sel_next" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z"/></defs>
+                            <use fill-rule="evenodd" href="#sel_next" transform="rotate(-180 5.02 9.505)"/>
+                        </svg>
+                    </button>
+                    @endif
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
     @endif
 
+    </div>{{-- end flex flex-col gap-8 --}}
 </div>
 @endsection
 

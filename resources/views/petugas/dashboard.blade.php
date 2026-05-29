@@ -1,93 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto py-8 px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+<div class="mx-auto pt-20 pb-8 lg:py-8 px-4">
+    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-3 lg:gap-10 lg:items-start">
 
         {{-- baris1 kolom1 --}}
         <div class="lg:col-span-1 flex flex-col gap-3">
-            <h1 class="text-4xl font-bold tracking-tight">Dashboard</h1>
-            <p class="text-gray-500 font-medium leading-relaxed text-lg">
+            <h1 class="text-2xl sm:text-4xl font-bold tracking-tight">Dashboard</h1>
+            <p class="text-gray-500 font-medium leading-relaxed">
                 Selamat datang di Inventry, mari pantau dan kelola antrean persetujuan peminjaman serta pengembalian alat hari ini.
             </p>
         </div>
 
         {{-- baris1 kolom2 col-span2 --}}
-        <div class="lg:col-span-2 rounded-[20px] p-4 bg-gradient-to-r from-[#363062] to-[#4D4C7D] flex flex-col md:flex-row gap-8 relative shadow-lg">
+        <div class="lg:col-span-2 rounded-[20px] p-4 bg-gradient-to-r from-[#363062] to-[#4D4C7D] flex flex-col sm:flex-row gap-6 relative shadow-lg">
 
             {{-- Menunggu Persetujuan --}}
-            <div class="flex-1 flex flex-col">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-white text-lg">Menunggu Persetujuan</h3>
-                    <div class="flex items-center gap-2 text-sm font-normal text-white">
+            <div class="flex-1 flex flex-col min-w-0">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                    <h3 class="font-bold text-white text-base sm:text-lg">Menunggu Persetujuan</h3>
+                    <div class="flex items-center gap-1.5 text-xs sm:text-sm font-normal text-white shrink-0">
                         <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
                         {{ $totalMenungguPersetujuan }} Peminjam
                     </div>
                 </div>
 
-                <div class="relative overflow-hidden mb-3" style="height: auto; min-height: 112px;">
-                    <div class="flex flex-col gap-2">
-                        @forelse($menungguPersetujuan as $item)
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full shadow-md flex-shrink-0 bg-gray-50 overflow-hidden">
-                                    <img src="{{ asset('storage/' . $item['foto']) }}" 
-                                         class="w-full h-full object-cover"
-                                         onerror="this.src='{{ asset('images/default-avatar.png') }}'">
-                                </div>
-                                <span class="font-bold text-white">{{ $item['nama'] }}</span>
+                <div class="flex flex-col gap-2 mb-3 min-h-[80px]">
+                    @forelse($menungguPersetujuan as $item)
+                    <div class="flex justify-between items-center gap-2">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md flex-shrink-0 bg-gray-50 overflow-hidden">
+                                <img src="{{ asset('storage/' . $item['foto']) }}" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src='{{ asset('images/default-avatar.png') }}'">
                             </div>
-                            <span class="text-sm font-medium text-white">{{ $item['total_item'] }} Item</span>
+                            <span class="font-bold text-white text-sm truncate">{{ $item['nama'] }}</span>
                         </div>
-                        @empty
-                        <div class="text-white/70 text-sm text-center py-4">Tidak ada data</div>
-                        @endforelse
+                        <span class="text-xs sm:text-sm font-medium text-white shrink-0">{{ $item['total_item'] }} Item</span>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-full border border-white/30 pointer-events-none"></div>
+                    @empty
+                    <div class="text-white/70 text-sm text-center py-4">Tidak ada data</div>
+                    @endforelse
                 </div>
 
                 <a href="{{ route('petugas-peminjaman') }}" 
-                   class="w-full mt-auto py-2 border border-transparent rounded-full font-normal text-center text-[#363062] bg-white hover:bg-transparent hover:border-white hover:text-white transition-colors">
+                   class="w-full mt-auto py-2 border border-transparent rounded-full font-normal text-center text-[#363062] bg-white hover:bg-transparent hover:border-white hover:text-white transition-colors text-sm">
                     Selengkapnya
                 </a>
             </div>
 
-            <div class="hidden md:block w-0.5 bg-white rounded-full flex-shrink-0"></div>
-            <div class="block md:hidden h-0.5 w-full bg-white rounded-full flex-shrink-0"></div>
+            <div class="hidden sm:block w-0.5 bg-white/50 rounded-full flex-shrink-0"></div>
+            <div class="block sm:hidden h-0.5 w-full bg-white/50 rounded-full flex-shrink-0"></div>
 
             {{-- Menunggu Konfirmasi --}}
-            <div class="flex-1 flex flex-col">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-white text-lg">Menunggu Konfirmasi</h3>
-                    <div class="flex items-center gap-2 text-sm font-normal text-white">
+            <div class="flex-1 flex flex-col min-w-0">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                    <h3 class="font-bold text-white text-base sm:text-lg">Menunggu Konfirmasi</h3>
+                    <div class="flex items-center gap-1.5 text-xs sm:text-sm font-normal text-white shrink-0">
                         <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
                         {{ $totalMenungguKonfirmasi }} Pengembali
                     </div>
                 </div>
 
-                <div class="relative overflow-hidden mb-3" style="height: auto; min-height: 112px;">
-                    <div class="flex flex-col gap-2">
-                        @forelse($menungguKonfirmasi as $item)
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full shadow-md flex-shrink-0 bg-gray-50 overflow-hidden">
-                                    <img src="{{ asset('storage/' . $item['foto']) }}" 
-                                         class="w-full h-full object-cover"
-                                         onerror="this.src='{{ asset('images/default-avatar.png') }}'">
-                                </div>
-                                <span class="font-bold text-white">{{ $item['nama'] }}</span>
+                <div class="flex flex-col gap-2 mb-3 min-h-[80px]">
+                    @forelse($menungguKonfirmasi as $item)
+                    <div class="flex justify-between items-center gap-2">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md flex-shrink-0 bg-gray-50 overflow-hidden">
+                                <img src="{{ asset('storage/' . $item['foto']) }}" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src='{{ asset('images/default-avatar.png') }}'">
                             </div>
-                            <span class="text-sm font-medium text-white">{{ $item['total_item'] }} Item</span>
+                            <span class="font-bold text-white text-sm truncate">{{ $item['nama'] }}</span>
                         </div>
-                        @empty
-                        <div class="text-white/70 text-sm text-center py-4">Tidak ada data</div>
-                        @endforelse
+                        <span class="text-xs sm:text-sm font-medium text-white shrink-0">{{ $item['total_item'] }} Item</span>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-full border border-white/30 pointer-events-none"></div>
+                    @empty
+                    <div class="text-white/70 text-sm text-center py-4">Tidak ada data</div>
+                    @endforelse
                 </div>
 
                 <a href="{{ route('petugas-pengembalian') }}" 
-                   class="w-full mt-auto py-2 border border-transparent rounded-full font-normal text-center text-[#363062] bg-white hover:bg-transparent hover:border-white hover:text-white transition-colors">
+                   class="w-full mt-auto py-2 border border-transparent rounded-full font-normal text-center text-[#363062] bg-white hover:bg-transparent hover:border-white hover:text-white transition-colors text-sm">
                     Selengkapnya
                 </a>
             </div>
@@ -108,7 +102,7 @@
                 </div>
 
                 <div class="flex flex-col gap-1">
-                    <h2 class="text-3xl font-bold">Aktivitas Saya</h2>
+                    <h2 class="text-xl sm:text-3xl font-bold">Aktivitas Saya</h2>
                     <p class="text-sm font-medium text-gray-500">
                         Pantau aktivitas persetujuan dan verifikasi yang telah Anda lakukan.
                     </p>
@@ -137,37 +131,27 @@
 
                     {{-- CHART MATRIKS: 12 Kolom (Bulan) x 4 Baris (Minggu 1-4) --}}
                     <div class="border-t border-gray-200 pt-6">
-                        <div class="overflow-x-auto pb-4">
-                            <div class="min-w-[1000px]">
-                                
-                                {{-- HEADER KOSONG (biar rapi) --}}
-                                <div class="flex mb-2">
-                                    <div class="w-24 flex-shrink-0"></div>
-                                    <div class="flex flex-1 gap-2">
-                                        @foreach($chartData['months'] as $month)
-                                        <div class="flex-1"></div>
-                                        @endforeach
-                                    </div>
-                                </div>
+                        <div class="w-full">
+                            <div class="w-full">
                                 
                                 {{-- BARIS 1-4: Minggu 1 sampai Minggu 4 --}}
                                 @for($week = 1; $week <= 4; $week++)
-                                <div class="flex mb-2">
-                                    <div class="w-24 flex-shrink-0 flex items-center">
-                                        <span class="text-xs font-medium text-gray-500">Minggu {{ $week }}</span>
+                                <div class="flex mb-1.5">
+                                    <div class="w-16 sm:w-24 flex-shrink-0 flex items-center">
+                                        <span class="text-[10px] sm:text-xs font-medium text-gray-500">Minggu {{ $week }}</span>
                                     </div>
-                                    <div class="flex flex-1 gap-2">
+                                    <div class="flex flex-1 gap-1 sm:gap-2">
                                         @for($month = 1; $month <= 12; $month++)
                                             @php
                                                 $count = isset($chartData['weeklyData'][$month][$week]) ? $chartData['weeklyData'][$month][$week] : 0;
                                                 $color = isset($chartData['weeklyColors'][$month][$week]) ? $chartData['weeklyColors'][$month][$week] : '#F3F4F6';
                                             @endphp
                                             <div class="flex-1">
-                                                <div class="rounded-lg h-12 transition-all duration-200 cursor-pointer relative group {{ $count == 0 ? 'border border-gray-200' : '' }}" 
+                                                <div class="rounded sm:rounded-lg h-6 sm:h-10 transition-all duration-200 cursor-pointer relative group {{ $count == 0 ? 'border border-gray-200' : '' }}" 
                                                     style="background-color: {{ $color }};"
                                                     title="Minggu {{ $week }} - {{ $chartData['months'][$month-1] }}: {{ $count }} aktivitas">
                                                     @if($count > 0)
-                                                    <div class="absolute bottom-1 right-1 text-white text-[9px] font-bold opacity-80">
+                                                    <div class="absolute bottom-0.5 right-0.5 text-white text-[7px] sm:text-[9px] font-bold opacity-80 hidden sm:block">
                                                         {{ $count }}
                                                     </div>
                                                     @endif
@@ -179,12 +163,12 @@
                                 @endfor
                                 
                                 {{-- NAMA BULAN DI BAWAH MATRIKS --}}
-                                <div class="flex mt-3">
-                                    <div class="w-24 flex-shrink-0"></div>
-                                    <div class="flex flex-1 gap-2">
+                                <div class="flex mt-2">
+                                    <div class="w-16 sm:w-24 flex-shrink-0"></div>
+                                    <div class="flex flex-1 gap-1 sm:gap-2">
                                         @foreach($chartData['months'] as $month)
-                                        <div class="flex-1 text-center text-xs font-semibold text-gray-600">
-                                            {{ $month }}
+                                        <div class="flex-1 text-center text-[8px] sm:text-xs font-semibold text-gray-600">
+                                            {{ substr($month, 0, 3) }}
                                         </div>
                                         @endforeach
                                     </div>
@@ -226,9 +210,6 @@
                         <div class="w-4 h-4 rounded" style="background-color: #2A2952"></div>
                         <span class="text-gray-500">26+</span>
                     </div>
-                </div>
-                <div class="text-xs text-gray-400 mt-3">
-                    * Menampilkan aktivitas persetujuan peminjaman dan verifikasi pengembalian yang Anda lakukan
                 </div>
             </div>
 
